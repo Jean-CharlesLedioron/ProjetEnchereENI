@@ -21,7 +21,46 @@ public class Utilisateur {
 	 * Constructeur par défaut
 	 */
 	public Utilisateur() {
+	}
+
+
+	/**
+	 * @param noUtilisateur
+	 */
+	public Utilisateur(int noUtilisateur) {
+		this.noUtilisateur = noUtilisateur;
+	}
+	
+	
+
+
+	/**
+	 * Constructeur pour la requete select noUtilisateur et credit by pseudo
+	 * @param noUtilisateur
+	 * @param pseudo
+	 * @param credit
+	 */
+	public Utilisateur(int noUtilisateur, String pseudo, int credit) {
 		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.credit = credit;
+	}
+
+
+	/**
+	 * COntructeur infos d'adresse de retrait pour le pseudo connecté
+	 * @param pseudo
+	 * @param rue
+	 * @param codePostal
+	 * @param ville
+	 */
+	public Utilisateur(String pseudo, String rue, String codePostal, String ville) {
+		super();
+		this.pseudo = pseudo;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
 	}
 
 
