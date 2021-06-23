@@ -29,10 +29,10 @@ public class ServletVisualisationEnchere extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer id = 6;
+		Integer id = 1;
 		HttpSession session = request.getSession();
 		session.setAttribute("objetEnchere", id);
-		session.setAttribute("pseudo", "Diego");
+		session.setAttribute("pseudo", "DK");
 		request.getParameter("objetEnchere");
 		try {
 			ArticleVendu article = EnchereManager.getInstance().desriptionArticle((Integer) session.getAttribute("objetEnchere"));
@@ -59,15 +59,14 @@ public class ServletVisualisationEnchere extends HttpServlet {
 		try {
 			EnchereManager.getInstance().propositionEnchere(utilisateur,article,propostionEnchere);
 			request.setAttribute("succesEnchere", "oui");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Enchere.jsp");
-			rd.forward(request, response);
+			
 		} catch (BusinessException businessException) {
 			businessException.printStackTrace();
 			request.setAttribute("listeCodesErreur", businessException.getListeCodesErreur());
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Enchere.jsp");
 			rd.forward(request, response);
 		}
-		
+		doGet(request, response);
 		
 	}
 

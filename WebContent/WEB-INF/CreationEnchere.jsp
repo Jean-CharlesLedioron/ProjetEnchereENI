@@ -77,18 +77,19 @@
 
 						</div>
 						<div class="row">
-							<label for="prix" class="col-xs-4 col-md-3">Mise à
-								prix :</label> <input type="number" name="prix" min="0">
+							<label for="prix" class="col-xs-4 col-md-3">Mise à prix :</label>
+							<input type="number" name="prix" min="0">
 						</div>
 						<br>
 						<div class="row">
-							<label for="debutEnchere" class="col-xs-4 col-md-3">Début de
-								l'enchère</label> <input name="debutEnchere" type="date">
+							<label for="debutEnchere" class="col-xs-4 col-md-3">Début
+								de l'enchère</label> <input type="datetime-local" id="debutEnchere"
+								name="debutEnchere">
 						</div>
 						<br>
 						<div class="row">
 							<label for="finEnchere" class="col-xs-4 col-md-3">Fin de
-								l'enchère</label> <input name="finEnchere" type="date">
+								l'enchère</label> <input name="finEnchere" type="datetime-local">
 						</div>
 						<br> <br>
 						<div class="card" title="Retrait">
@@ -113,21 +114,21 @@
 							</div>
 							<br>
 							<div class="row">
-					<div class="col-xs-1 offset-xs-1 col-md-2 offset-md-1">
-						<button type="submit" class="btn btn-primary">Créer</button>
-					</div>
-					<div class="col-xs-1 offset-xs-4 col-md-2 offset-md-5">
-						<button type="reset" class="btn btn-primary">Reset</button>
-					</div>
-					<div class="col-xs-1 offset-xs-7 col-md-2 offset-md-9">
-						<a href="home" class="btn btn-primary">Retour</a>
-					</div>
-				</div>
+								<div class="col-xs-1 offset-xs-1 col-md-2 offset-md-1">
+									<button type="submit" class="btn btn-primary">Créer</button>
+								</div>
+								<div class="col-xs-1 offset-xs-4 col-md-2 offset-md-5">
+									<button type="reset" class="btn btn-primary">Reset</button>
+								</div>
+								<div class="col-xs-1 offset-xs-7 col-md-2 offset-md-9">
+									<a href="home" class="btn btn-primary">Retour</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</form>
 				<br> <br>
-				
+
 			</fieldset>
 		</div>
 	</div>

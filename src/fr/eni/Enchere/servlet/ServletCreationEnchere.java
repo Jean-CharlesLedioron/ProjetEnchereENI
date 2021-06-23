@@ -2,6 +2,7 @@ package fr.eni.Enchere.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -53,9 +54,9 @@ public class ServletCreationEnchere extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		ArticleVendu enchere = new ArticleVendu(request.getParameter("article"),request.getParameter("description"),
-				LocalDate.parse(request.getParameter("debutEnchere"),dtf),LocalDate.parse(request.getParameter("finEnchere"),dtf),
+				LocalDateTime.parse(request.getParameter("debutEnchere")),LocalDateTime.parse(request.getParameter("finEnchere")),
 				Integer.valueOf(request.getParameter("prix")));
 		Categorie categorie =	new Categorie(request.getParameter("categorie"));
 		Retrait retrait = new Retrait(request.getParameter("rue"),request.getParameter("cp"), request.getParameter("ville"));

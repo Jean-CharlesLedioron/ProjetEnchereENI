@@ -1,14 +1,15 @@
 package fr.eni.Enchere.bo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ArticleVendu {
 	private Integer noArticle;
 	private String nomArticle;
 	private String description;
-	private LocalDate dateDebutEnchere;
-	private LocalDate dateFinEnchere;
+	private LocalDateTime dateDebutEnchere;
+	private LocalDateTime dateFinEnchere;
 	private Integer prixInitial;
 	private Integer prixVente;
 	private Utilisateur utilisateur;
@@ -40,8 +41,8 @@ public class ArticleVendu {
 	 * @param noUtilisateur
 	 * @param noCategorie
 	 */
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
-			LocalDate dateFinEnchere, Integer prixInitial, Integer prixVente, Utilisateur utilisateur,
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEnchere,
+			LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixVente, Utilisateur utilisateur,
 			Categorie categorie) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -65,7 +66,7 @@ public class ArticleVendu {
 	 * @param dateFinEnchere
 	 * @param prixInitial
 	 */
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
+	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere,
 			Integer prixInitial) {
 		super();
 		this.nomArticle = nomArticle;
@@ -89,7 +90,7 @@ public class ArticleVendu {
 	 * @param retrait
 	 * @param enchere
 	 */
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateFinEnchere,
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDateTime dateFinEnchere,
 			Integer prixInitial, Utilisateur utilisateur, Categorie categorie, Retrait retrait, List<Enchere> enchere) {
 		super();
 		this.noArticle = noArticle;
@@ -143,19 +144,19 @@ public class ArticleVendu {
 		this.description = description;
 	}
 
-	public LocalDate getDateDebutEnchere() {
+	public LocalDateTime getDateDebutEnchere() {
 		return dateDebutEnchere;
 	}
 
-	public void setDateDebutEnchere(LocalDate dateDebutEnchere) {
+	public void setDateDebutEnchere(LocalDateTime dateDebutEnchere) {
 		this.dateDebutEnchere = dateDebutEnchere;
 	}
 
-	public LocalDate getDateFinEnchere() {
+	public LocalDateTime getDateFinEnchere() {
 		return dateFinEnchere;
 	}
 
-	public void setDateFinEnchere(LocalDate dateFinEnchere) {
+	public void setDateFinEnchere(LocalDateTime dateFinEnchere) {
 		this.dateFinEnchere = dateFinEnchere;
 	}
 

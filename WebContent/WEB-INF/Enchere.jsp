@@ -57,7 +57,8 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-md-3">Meilleure offre :</div>
-							<div class="col-xs-8 offset-xs-4 col-md-9 offset-md-3">${meilleureEnchere.montantEnchere} par ${meilleureEnchere.noUtilisateur.pseudo}</div>
+							<div class="col-xs-8 offset-xs-4 col-md-9 offset-md-3">${meilleureEnchere.montantEnchere}
+								par ${meilleureEnchere.noUtilisateur.pseudo}</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-md-3">Mise à prix :</div>
@@ -81,24 +82,57 @@
 							<a href="pageProfilid"
 								class="col-xs-9 offset-xs-3 col-md-9 offset-md-3">${article.utilisateur.pseudo}</a>
 						</div>
-						<div class="row">
-							<div class="col-xs-4 col-md-3">Ma proposition :</div>
-							<div class="col-xs-4 offset-xs-4 col-md-3 offset-md-3">
-								<input type="number" name="propositionEnchere"
-									min="${meilleureEnchere.montantEnchere}"
-									value="${meilleureEnchere.montantEnchere}">
+						<c:if
+							test="${!(article.utilisateur.pseudo).equals(session.pseudo)}">
+							<div class="row">
+								<div class="col-xs-4 col-md-3">Ma proposition :</div>
+								<div class="col-xs-4 offset-xs-4 col-md-2 offset-md-3">
+								<c:choose>
+								<c:when test="${meilleureEnchere.montantEnchere}>${article.prixInitial}">
+									<input type="number" name="propositionEnchere"
+										min="${meilleureEnchere.montantEnchere}"
+										value="${meilleureEnchere.montantEnchere}">
+										</c:when>
+										<c:otherwise>
+										<input type="number" name="propositionEnchere"
+										min="${article.prixInitial}"
+										value="${article.prixInitial}">
+										
+										</c:otherwise>
+										</c:choose>
+								</div>
+								<div class="col-xs-1 offset-xs-11 col-md-3 offset-md-7">
+									<button type="submit" class="btn btn-primary">Enchérir</button>
+								</div>
 							</div>
-							<div class="col-xs-2 offset-xs-10 col-md-3 offset-md-7">
-								<button type="submit" class="btn btn-primary">Enchérir</button>
-							</div>
-						</div>
+						</c:if>
 						<br> <br>
-						<div class="row">
-							<div class="col-xs-2 col-xs-offset-5">
-								<a href="home" class="btn btn-primary">Retour</a>
+						<c:if
+							test="${!(article.utilisateur.pseudo).equals(session.pseudo)}">
+							<div class="row">
+								<div class="col-xs-2 col-xs-offset-3">
+									<a href="home" class="btn btn-primary">Retour</a>
+								</div>
 							</div>
-						</div>
-
+						</c:if>
+						<c:if
+							test="${(article.utilisateur.pseudo).equals(session.pseudo)}">
+							<div class="row">
+								<div class="col-xs-2 col-xs-offset-1">
+									<a href="home" class="btn btn-primary">Modifier l'enchère</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-2 col-xs-offset-4">
+									<a href="home" class="btn btn-primary">Supprimer l'enchère</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-2 col-xs-offset-7">
+									<a href="home" class="btn btn-primary">Retour</a>
+								</div>
+							</div>
+						</c:if>
 					</div>
 				</form>
 			</fieldset>

@@ -39,7 +39,7 @@ public class ServletInscription extends HttpServlet {
 			Utilisateur utilisateur = new Utilisateur(request.getParameter("pseudo"), request.getParameter("nom"),
 						request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"),
 						request.getParameter("rue"), request.getParameter("cp"), request.getParameter("ville"),
-						request.getParameter("password"), 0, (byte) 0);
+						request.getParameter("password"), 500, (byte) 0);
 		
 			EnchereManager.getInstance().insertNouvelAdherent(utilisateur,request.getParameter("confirm_password"));
 			HttpSession session = request.getSession();
