@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.Enchere.bll.EnchereManager;
 import fr.eni.Enchere.bo.ArticleVendu;
+import fr.eni.Enchere.bo.Enchere;
 import fr.eni.Enchere.bo.Utilisateur;
 import fr.eni.Enchere.exception.BusinessException;
 
@@ -28,7 +29,21 @@ public class ServletVisualisationEnchere extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		Integer id = 6;
+		HttpSession session = request.getSession();
+		session.setAttribute("objetEnchere", id);
+		session.setAttribute("pseudo", "Diego");
+		request.getParameter("objetEnchere");
+		try {
+			ArticleVendu article = EnchereManager.getInstance().desriptionArticle((Integer) session.getAttribute("objetEnchere"));
+			request.setAttribute("article", article);
+			for (Enchere enchere : article.getEnchere()) {
+				request.setAttribute("meilleureEnchere", enchere);
+			}
+		} catch (BusinessException businessException) {
+			businessException.printStackTrace();
+			request.setAttribute("listeCodesErreur", businessException.getListeCodesErreur());
+		}
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Enchere.jsp");
 		rd.forward(request, response);
 	}
@@ -38,12 +53,12 @@ public class ServletVisualisationEnchere extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-		ArticleVendu article = (ArticleVendu) session.getAttribute("objetEnchere");
+		Utilisateur utilisateur = new Utilisateur((String) session.getAttribute("pseudo"));
+		ArticleVendu article = new ArticleVendu((Integer) session.getAttribute("objetEnchere"));
 		int propostionEnchere = Integer.valueOf(request.getParameter("propositionEnchere"));
 		try {
 			EnchereManager.getInstance().propositionEnchere(utilisateur,article,propostionEnchere);
-			request.setAttribute("succesAjout", "oui");
+			request.setAttribute("succesEnchere", "oui");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Enchere.jsp");
 			rd.forward(request, response);
 		} catch (BusinessException businessException) {

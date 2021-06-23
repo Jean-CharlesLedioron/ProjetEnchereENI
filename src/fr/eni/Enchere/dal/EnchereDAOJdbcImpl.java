@@ -13,6 +13,7 @@ import java.util.List;
 
 import fr.eni.Enchere.bo.ArticleVendu;
 import fr.eni.Enchere.bo.Categorie;
+import fr.eni.Enchere.bo.Enchere;
 import fr.eni.Enchere.bo.Retrait;
 import fr.eni.Enchere.bo.Utilisateur;
 import fr.eni.Enchere.exception.BusinessException;
@@ -37,7 +38,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	private static final String RECHERCHE_UTILISATEUR_BY_EMAIL_OR_PSEUDO = "SELECT * FROM UTILISATEURS WHERE email=? or pseudo=? ";
 	
-	private static final String SELECT_MONTANT_ENCHERE_ACTUEL = "SELECT MAX(montant_enchere) FROM ENCHERES WHERE no_article=? GROUP BY montant_enchere ";
+	private static final String SELECT_MONTANT_ENCHERE_ACTUEL = "SELECT MAX(montant_enchere) AS montant_enchere_max FROM ENCHERES WHERE no_article=? GROUP BY montant_enchere ";
 	
 	private static final String SELECT_NUMERO_UTILISATEUR_ET_CREDIT_BY_PSEUDO = "SELECT no_utilisateur,credit FROM UTILISATEURS WHERE pseudo=? ";
 	
@@ -47,9 +48,22 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	private static final String INSERT_ARTICLE_VENDU = "INSERT INTO ARTICLES_VENDUS VALUES(?,?,?,?,?,null,?,?)";
 	
-	private static final String SELECT_CATEGORIES = "SELECT * FROM CATEGORIES WHERE libelle=? ";
+	private static final String SELECT_CATEGORIES_PAR_LIBELLE = "SELECT * FROM CATEGORIES WHERE libelle=? ";
 	
-	private static final String INSERT_POINT_RETRAIT = "INSERT INTO RETRAIT VALUES(?,?,?,?)";
+	private static final String INSERT_POINT_RETRAIT = "INSERT INTO RETRAITS VALUES(?,?,?,?)";
+	
+	private static final String SELECT_TOUTES_CATEGORIES = "SELECT * FROM CATEGORIES";
+	
+	private static final String SELECT_ARTICLE_BY_ID = " SELECT a.no_article, a.nom_article, a.description, c.libelle , a.prix_initial,a.date_fin_encheres,r.rue,r.code_postal,r.ville, u.pseudo" + 
+			"  FROM ARTICLES_VENDUS a LEFT JOIN CATEGORIES c ON a.no_categorie = c.no_categorie" + 
+			"  LEFT JOIN UTILISATEURS u ON u.no_utilisateur=a.no_utilisateur" + 
+			"  LEFT JOIN RETRAITS r ON r.no_article = a.no_article" + 
+			"  WHERE a.no_article=?";
+
+	private static final String SELECT_ENCHERE_GAGNANTE_BY_ID =   "  SELECT e.montant_enchere, u.pseudo" + 
+			"  FROM ENCHERES e INNER JOIN UTILISATEURS u ON e.no_utilisateur=u.no_utilisateur" + 
+			"  WHERE no_article=?" + 
+			"  ORDER BY e.montant_enchere DESC";
 	
 	
 
@@ -149,7 +163,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			pstmt.setInt(1, article.getNoArticle());
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
-			if (propositionEnchere > rs.getInt("montant_enchere")) {
+			if (propositionEnchere > rs.getInt("montant_enchere_max")) {
 				pstmt2.setString(1, utilisateur.getPseudo());
 				ResultSet rs2 = pstmt2.executeQuery();
 				rs2.next();
@@ -158,23 +172,35 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 					pstmt3.setInt(2, article.getNoArticle());
 					pstmt3.setDate(3, Date.valueOf(LocalDate.now()));
 					pstmt3.setInt(4, propositionEnchere);
+					pstmt3.executeUpdate();
+					miseAJourCredit(utilisateur,article,propositionEnchere,con);
 				}
 				else {
 					BusinessException businessException =new BusinessException();
 					businessException.ajouterErreur(CodesResultatDAL.CREDIT_UTILISATEUR_INSUFISSANT);
 					throw businessException;
 				}
-				}else {
+			}else {
 					BusinessException businessException =new BusinessException();
 					businessException.ajouterErreur(CodesResultatDAL.ENCHERE_INSUFFISANTE);
 					throw businessException;
-				}
+			}
 		}catch (Exception e) {
 			BusinessException businessException =new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.ECHEC_DE_PRISE_EN_COMPTE_DE_L_ENCHERE);
 			throw businessException;
 		}
 				
+		
+	}
+	private void miseAJourCredit(Utilisateur utilisateur, ArticleVendu article, int propositionEnchere, Connection con) {
+		try () {
+			
+		} catch (Exception e) {
+			BusinessException businessException =new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.ECHEC_PRISE_EN_COMPTE_CREDIT);
+			throw businessException;
+		}
 		
 	}
 	@Override
@@ -219,8 +245,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		rs.close();
 		pstmt2.setInt(1, noArticle);
 		pstmt2.setNString(2, retrait.getRue());
-		pstmt2.setNString(2, retrait.getCodePostal());
-		pstmt2.setNString(2, retrait.getVille());
+		pstmt2.setNString(3, retrait.getCodePostal());
+		pstmt2.setNString(4, retrait.getVille());
 		pstmt2.executeUpdate();
 		} catch (SQLException e) {
 			BusinessException businessException =new BusinessException();
@@ -233,7 +259,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 	
 	private Categorie categorieByLibelle(Categorie categorie, Connection con) throws BusinessException {
-		try (PreparedStatement pstmt = con.prepareStatement(SELECT_CATEGORIES)){
+		try (PreparedStatement pstmt = con.prepareStatement(SELECT_CATEGORIES_PAR_LIBELLE)){
 			pstmt.setString(1, categorie.getLibelle());
 			ResultSet rs = pstmt.executeQuery();
 			rs.next(); 
@@ -263,6 +289,61 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			throw businessException;
 		}
 		
+	}
+	@Override
+	public List<String> retourneListeCategorie() throws BusinessException {
+		try (Connection con = ConnectionProvider.getConnection(); Statement stmt = con.createStatement()){
+			List<String> listeCategorie = new ArrayList<String>();
+			ResultSet rs = stmt.executeQuery(SELECT_TOUTES_CATEGORIES);
+			while (rs.next()) {
+				String libelle = rs.getString("libelle");
+				listeCategorie.add(libelle);
+			}
+			return listeCategorie;
+		} catch (Exception e) {
+			BusinessException businessException =new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.ECHEC_RECUPERATION_CATEGORIE);
+			throw businessException;
+		}
+	}
+
+	@Override
+	public ArticleVendu descriptionArticle(Integer noArticle) throws BusinessException {
+		try (Connection con = ConnectionProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(SELECT_ARTICLE_BY_ID);
+				PreparedStatement pstmt2 = con.prepareStatement(SELECT_ENCHERE_GAGNANTE_BY_ID)){
+			pstmt.setInt(1, noArticle);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				String nomArticle = rs.getString("nom_article");
+				String description = rs.getString("description");
+				Categorie libelle = new Categorie(rs.getString("libelle"));
+				Integer prix = rs.getInt("prix_initial");
+				LocalDate dateFin = rs.getDate("date_fin_encheres").toLocalDate();
+				String rue = rs.getString("rue");
+				String cp = rs.getString("code_postal");
+				String ville = rs.getString("ville");
+				Utilisateur pseudo = new Utilisateur(rs.getString("pseudo"));
+				pstmt2.setInt(1, noArticle);
+				ResultSet rs2 = pstmt2.executeQuery();
+				Integer meilleureOffre = null;
+				Utilisateur pseudoMeilleureEnchere = null;
+				if (rs2.next()) {
+					meilleureOffre = rs2.getInt("montant_enchere");
+					pseudoMeilleureEnchere = new Utilisateur(rs2.getString("pseudo"));
+				}
+				Retrait retrait =new Retrait(rue,cp,ville);
+				Enchere enchere= new Enchere(pseudoMeilleureEnchere,meilleureOffre);
+				List<Enchere> listeEnchere = new ArrayList<Enchere>();
+				listeEnchere.add(enchere);
+				ArticleVendu article = new ArticleVendu(noArticle,nomArticle,description,dateFin,prix,pseudo,libelle,retrait,listeEnchere);
+				return article;
+			}
+		} catch (SQLException e) {
+			BusinessException businessException =new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.ECHEC_RECUPERATION_ENCHERE);
+			throw businessException;
+		}
+		return null;
 	}
 
 }

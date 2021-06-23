@@ -3,6 +3,7 @@ package fr.eni.Enchere.servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,7 +34,10 @@ public class ServletCreationEnchere extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			List<String> listeCategorie = EnchereManager.getInstance().retourneListeCategorie();
+			request.setAttribute("listeCategorie", listeCategorie);
 			HttpSession session = request.getSession();
+			session.setAttribute("pseudo", "DK");
 			Utilisateur adresseRetraitDefault = EnchereManager.getInstance().retourneAdresseRetrait((String) session.getAttribute("pseudo"));
 			request.setAttribute("adresse", adresseRetraitDefault);
 			} catch (BusinessException businessException) {
@@ -51,7 +55,8 @@ public class ServletCreationEnchere extends HttpServlet {
 		HttpSession session = request.getSession();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		ArticleVendu enchere = new ArticleVendu(request.getParameter("article"),request.getParameter("description"),
-				LocalDate.parse(request.getParameter("debutEnchere"),dtf),LocalDate.parse(request.getParameter("finEnchere"),dtf),Integer.valueOf(request.getParameter("prix")));
+				LocalDate.parse(request.getParameter("debutEnchere"),dtf),LocalDate.parse(request.getParameter("finEnchere"),dtf),
+				Integer.valueOf(request.getParameter("prix")));
 		Categorie categorie =	new Categorie(request.getParameter("categorie"));
 		Retrait retrait = new Retrait(request.getParameter("rue"),request.getParameter("cp"), request.getParameter("ville"));
 		try {

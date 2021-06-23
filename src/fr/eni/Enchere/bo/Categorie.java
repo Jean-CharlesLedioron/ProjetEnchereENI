@@ -1,9 +1,12 @@
 package fr.eni.Enchere.bo;
 
+import java.util.List;
+
 public class Categorie {
 	
 	private Integer noCategorie;
 	private String libelle;
+	private List<ArticleVendu> categorieArticle;
 	
 	public Categorie() {
 	}
@@ -27,6 +30,14 @@ public class Categorie {
 	public Categorie(String libelle) {
 		super();
 		this.libelle = libelle;
+	}
+
+	public List<ArticleVendu> getCategorieArticle() {
+		return categorieArticle;
+	}
+
+	public void setCategorieArticle(List<ArticleVendu> categorieArticle) {
+		this.categorieArticle = categorieArticle;
 	}
 
 	public Integer getNoCategorie() {

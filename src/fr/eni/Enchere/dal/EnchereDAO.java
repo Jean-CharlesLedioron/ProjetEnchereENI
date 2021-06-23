@@ -22,6 +22,10 @@ public interface EnchereDAO {
 
 	public void creerEnchere(ArticleVendu enchere, Categorie categorie, Retrait retrait, String pseudo)throws BusinessException;
 
+	public List<String> retourneListeCategorie() throws BusinessException;
+
+	public ArticleVendu descriptionArticle(Integer noArticle) throws BusinessException;
+
 	
 
 }

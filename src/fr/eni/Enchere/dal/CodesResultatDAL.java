@@ -54,4 +54,16 @@ public abstract class CodesResultatDAL {
 	 */
 
 	public static final int ECHEC_CREATION_ENCHERE = 10009;
+	
+	/**
+	 * Echec de la récupération des catégories
+	 */
+
+	public static final int ECHEC_RECUPERATION_CATEGORIE = 10010;
+	
+	/**
+	 * Echec de la récupération de l'enchère
+	 */
+
+	public static final int ECHEC_RECUPERATION_ENCHERE = 10011;
 }

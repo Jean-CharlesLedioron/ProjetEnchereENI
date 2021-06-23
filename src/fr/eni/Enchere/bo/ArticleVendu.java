@@ -1,6 +1,7 @@
 package fr.eni.Enchere.bo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ArticleVendu {
 	private Integer noArticle;
@@ -10,8 +11,10 @@ public class ArticleVendu {
 	private LocalDate dateFinEnchere;
 	private Integer prixInitial;
 	private Integer prixVente;
-	private Integer noUtilisateur;
-	private Integer noCategorie;
+	private Utilisateur utilisateur;
+	private Categorie categorie;
+	private Retrait retrait;
+	private List<Enchere> enchere;
 	
 	public ArticleVendu() {
 	}
@@ -38,8 +41,8 @@ public class ArticleVendu {
 	 * @param noCategorie
 	 */
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
-			LocalDate dateFinEnchere, Integer prixInitial, Integer prixVente, Integer noUtilisateur,
-			Integer noCategorie) {
+			LocalDate dateFinEnchere, Integer prixInitial, Integer prixVente, Utilisateur utilisateur,
+			Categorie categorie) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -47,8 +50,8 @@ public class ArticleVendu {
 		this.dateFinEnchere = dateFinEnchere;
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
-		this.noUtilisateur = noUtilisateur;
-		this.noCategorie = noCategorie;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
 	}
 	
 	
@@ -70,6 +73,50 @@ public class ArticleVendu {
 		this.dateDebutEnchere = dateDebutEnchere;
 		this.dateFinEnchere = dateFinEnchere;
 		this.prixInitial = prixInitial;
+	}
+
+
+
+	/**
+	 *  Contructeur pour la visualisation d'enchère
+	 * @param noArticle
+	 * @param nomArticle
+	 * @param description
+	 * @param dateFinEnchere
+	 * @param prixInitial
+	 * @param utilisateur
+	 * @param categorie
+	 * @param retrait
+	 * @param enchere
+	 */
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateFinEnchere,
+			Integer prixInitial, Utilisateur utilisateur, Categorie categorie, Retrait retrait, List<Enchere> enchere) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateFinEnchere = dateFinEnchere;
+		this.prixInitial = prixInitial;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.retrait = retrait;
+		this.enchere = enchere;
+	}
+
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+
+	public List<Enchere> getEnchere() {
+		return enchere;
+	}
+
+	public void setEnchere(List<Enchere> enchere) {
+		this.enchere = enchere;
 	}
 
 	public Integer getNoArticle() {
@@ -128,20 +175,20 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 	}
 
-	public Integer getNoUtilisateur() {
-		return noUtilisateur;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
-	public void setNoUtilisateur(Integer noUtilisateur) {
-		this.noUtilisateur = noUtilisateur;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
-	public Integer getNoCategorie() {
-		return noCategorie;
+	public Categorie getCategorie() {
+		return categorie;
 	}
 
-	public void setNoCategorie(Integer noCategorie) {
-		this.noCategorie = noCategorie;
+	public void setNoCategorie(Categorie categorie) {
+		this.categorie = categorie;
 	}
 
 	@Override
@@ -152,8 +199,8 @@ public class ArticleVendu {
 		result = prime * result + ((dateFinEnchere == null) ? 0 : dateFinEnchere.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((noArticle == null) ? 0 : noArticle.hashCode());
-		result = prime * result + ((noCategorie == null) ? 0 : noCategorie.hashCode());
-		result = prime * result + ((noUtilisateur == null) ? 0 : noUtilisateur.hashCode());
+		result = prime * result + ((categorie == null) ? 0 : categorie.hashCode());
+		result = prime * result + ((utilisateur == null) ? 0 : utilisateur.hashCode());
 		result = prime * result + ((nomArticle == null) ? 0 : nomArticle.hashCode());
 		result = prime * result + ((prixInitial == null) ? 0 : prixInitial.hashCode());
 		result = prime * result + ((prixVente == null) ? 0 : prixVente.hashCode());
@@ -189,15 +236,15 @@ public class ArticleVendu {
 				return false;
 		} else if (!noArticle.equals(other.noArticle))
 			return false;
-		if (noCategorie == null) {
-			if (other.noCategorie != null)
+		if (categorie == null) {
+			if (other.categorie != null)
 				return false;
-		} else if (!noCategorie.equals(other.noCategorie))
+		} else if (!categorie.equals(other.categorie))
 			return false;
-		if (noUtilisateur == null) {
-			if (other.noUtilisateur != null)
+		if (utilisateur == null) {
+			if (other.utilisateur != null)
 				return false;
-		} else if (!noUtilisateur.equals(other.noUtilisateur))
+		} else if (!utilisateur.equals(other.utilisateur))
 			return false;
 		if (nomArticle == null) {
 			if (other.nomArticle != null)
@@ -221,8 +268,8 @@ public class ArticleVendu {
 	public String toString() {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEnchere=" + dateDebutEnchere + ", dateFinEnchere=" + dateFinEnchere + ", prixInitial="
-				+ prixInitial + ", prixVente=" + prixVente + ", noUtilisateur=" + noUtilisateur + ", noCategorie="
-				+ noCategorie + "]";
+				+ prixInitial + ", prixVente=" + prixVente + ", noUtilisateur=" + utilisateur + ", noCategorie="
+				+ categorie + "]";
 	}
 	
 	

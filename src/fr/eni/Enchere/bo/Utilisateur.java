@@ -1,5 +1,7 @@
 package fr.eni.Enchere.bo;
 
+import java.util.List;
+
 public class Utilisateur {
 	private int noUtilisateur;
 	private String pseudo;
@@ -13,6 +15,10 @@ public class Utilisateur {
 	private String motDePasse;
 	private int credit;
 	private byte administrateur;
+	private List<ArticleVendu> achat;
+	private List<ArticleVendu> vente;
+	private List<Enchere> enchere;
+	
 	
 	
 	
@@ -32,6 +38,14 @@ public class Utilisateur {
 	}
 	
 	
+
+
+	/**
+	 * @param pseudo
+	 */
+	public Utilisateur(String pseudo) {
+		this.pseudo = pseudo;
+	}
 
 
 	/**
@@ -130,6 +144,36 @@ public class Utilisateur {
 	}
 	
 	
+	public List<ArticleVendu> getAchat() {
+		return achat;
+	}
+
+
+	public void setAchat(List<ArticleVendu> achat) {
+		this.achat = achat;
+	}
+
+
+	public List<ArticleVendu> getVente() {
+		return vente;
+	}
+
+
+	public void setVente(List<ArticleVendu> vente) {
+		this.vente = vente;
+	}
+
+
+	public List<Enchere> getEnchere() {
+		return enchere;
+	}
+
+
+	public void setEnchere(List<Enchere> enchere) {
+		this.enchere = enchere;
+	}
+
+
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}

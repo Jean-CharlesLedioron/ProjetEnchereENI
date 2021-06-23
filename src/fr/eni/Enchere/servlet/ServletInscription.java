@@ -34,19 +34,14 @@ public class ServletInscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Utilisateur utilisateur = new Utilisateur();
 		try {
-			if (request.getParameter("password") == request.getParameter("confirm_password")) {
-				utilisateur = new Utilisateur(request.getParameter("pseudo"), request.getParameter("nom"),
+			
+			Utilisateur utilisateur = new Utilisateur(request.getParameter("pseudo"), request.getParameter("nom"),
 						request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"),
 						request.getParameter("rue"), request.getParameter("cp"), request.getParameter("ville"),
 						request.getParameter("password"), 0, (byte) 0);
-			}else {
-				BusinessException businessException = new BusinessException();
-				businessException.ajouterErreur(CodesResultatServlet.REGLE_MOT_DE_PASSE_NON_INDENTIQUE);
-				throw businessException;
-			}
-			EnchereManager.getInstance().insertNouvelAdherent(utilisateur);
+		
+			EnchereManager.getInstance().insertNouvelAdherent(utilisateur,request.getParameter("confirm_password"));
 			HttpSession session = request.getSession();
 			session.setAttribute("pseudoConnection", request.getParameter("pseudo")); //TODO
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Acceuil.jsp");

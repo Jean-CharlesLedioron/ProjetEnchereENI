@@ -29,6 +29,19 @@ public class Enchere {
 	}
 
 
+
+
+	/**
+	 * @param noUtilisateur
+	 * @param montantEnchere
+	 */
+	public Enchere(Utilisateur noUtilisateur, Integer montantEnchere) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.montantEnchere = montantEnchere;
+	}
+
+
 	public Utilisateur getNoUtilisateur() {
 		return noUtilisateur;
 	}
