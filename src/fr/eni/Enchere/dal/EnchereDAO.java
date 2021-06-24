@@ -16,5 +16,10 @@ public interface EnchereDAO {
 	public Utilisateur verificationByPseudoAndMail(Utilisateur user) throws BusinessException;
 
 	public Utilisateur recuperationPseudo(Utilisateur user) throws BusinessException;
-
+	
+	public void modifierCompte(Utilisateur utilisateur, String newPassword, String pseudo) throws BusinessException;
+	
+	public void supprimerCompte(String pseudo) throws BusinessException;
+	
+	public Utilisateur afficherVendeur(String pseudoVendeur) throws BusinessException;
 }
