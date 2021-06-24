@@ -43,5 +43,16 @@ public class EnchereManager {
 			}
 	}
 
+public Utilisateur connexionByPseudoOrMail(Utilisateur user) throws BusinessException {
+	Utilisateur utilisateur = enchereDAO.verificationByPseudoAndMail(user);
+	return utilisateur;
+}
+
+public Utilisateur recuperationPseudoSession(Utilisateur user) throws BusinessException {
+	Utilisateur pseudo = enchereDAO.recuperationPseudo(user);		
+	return pseudo;
+}
+
+
 
 }

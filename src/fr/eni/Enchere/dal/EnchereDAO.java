@@ -13,4 +13,8 @@ public interface EnchereDAO {
 
 	public boolean verificationMailPseudoDejaUtilise(Utilisateur utilisateur) throws BusinessException;
 
+	public Utilisateur verificationByPseudoAndMail(Utilisateur user) throws BusinessException;
+
+	public Utilisateur recuperationPseudo(Utilisateur user) throws BusinessException;
+
 }

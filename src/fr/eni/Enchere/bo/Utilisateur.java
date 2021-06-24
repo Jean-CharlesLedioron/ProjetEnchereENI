@@ -91,6 +91,18 @@ public class Utilisateur {
 	}
 	
 	
+	public Utilisateur(String login, String mail, String password) {
+	this.pseudo=login;
+	this.email=mail;
+	this.motDePasse=password;
+	}
+
+
+	public Utilisateur(String pseudo) {
+		this.pseudo=pseudo;
+	}
+
+
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}

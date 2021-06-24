@@ -31,9 +31,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	private static final String SELECT_LISTE_UTILISATEURS = "SELECT * FROM UTILISATEURS";
 	
-	private static final String RECHERCHE_UTILISATEUR_BY_EMAIL_OR_PSEUDO = "SELECT * FROM UTILISATEURS WHERE email=? or pseudo=? ";
+	//private static final String RECHERCHE_UTILISATEUR_BY_EMAIL_OR_PSEUDO = "SELECT pseudo , email FROM UTILISATEURS WHERE email=? or pseudo=? ";
 	
-
+	private static final String VERIFICATION_CONNEXION = "SELECT pseudo FROM UTILISATEURS WHERE (email=? or pseudo=?) AND mot_de_passe=? ";
+	
+	
 	
 	
 
@@ -75,7 +77,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				listeUtilisateur.add(utilisateur);
 			}
 		} catch (Exception e) {
-			BusinessException businessException =new BusinessException();
+			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.PROBLEME_ACCES_BDD);
 			throw businessException;
 		}
@@ -123,5 +125,41 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		}
 		return dejaInscrit;
 	}
+	
+	public Utilisateur verificationByPseudoAndMail(Utilisateur user) throws BusinessException {
+		boolean connexionVerifie=false;
+		Utilisateur utilisateur = new Utilisateur();
+		String pseudo = null;
+		try (Connection con = ConnectionProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(VERIFICATION_CONNEXION)) {
+			pstmt.setString(1, user.getEmail());
+			pstmt.setString(2, user.getPseudo());
+			pstmt.setString(3, user.getMotDePasse());
+			ResultSet rs = pstmt.executeQuery();
+			connexionVerifie = rs.next();
+			if(connexionVerifie) {
+				pseudo = rs.getString("pseudo");
+				utilisateur = new Utilisateur(pseudo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return utilisateur;
+	}
+	/*@Override
+	public Utilisateur recuperationPseudo(Utilisateur user) throws BusinessException {
+		Utilisateur idUser = new Utilisateur();
+		try (Connection con = ConnectionProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(RECHERCHE_UTILISATEUR_BY_EMAIL_OR_PSEUDO )){
+			pstmt.setString(1, user.getEmail());
+			pstmt.setString(2, user.getPseudo());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String pseudo = rs.getString("pseudo");
+				idUser = new Utilisateur(pseudo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return idUser;
+	}*/
 
 }
