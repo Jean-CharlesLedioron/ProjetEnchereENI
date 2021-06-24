@@ -27,5 +27,8 @@ public interface EnchereDAO {
 	public ArticleVendu descriptionArticle(Integer noArticle) throws BusinessException;
 
 	
+	public Utilisateur verificationByPseudoAndMail(Utilisateur user) throws BusinessException;
+
+	//public Utilisateur recuperationPseudo(Utilisateur user) throws BusinessException;
 
 }

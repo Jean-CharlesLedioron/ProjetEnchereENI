@@ -9,8 +9,6 @@ import fr.eni.Enchere.bo.Utilisateur;
 import fr.eni.Enchere.dal.DAOFactory;
 import fr.eni.Enchere.dal.EnchereDAO;
 import fr.eni.Enchere.exception.BusinessException;
-import fr.eni.Enchere.servlet.CodesResultatServlet;
-import sun.security.krb5.Confounder;
 
 public class EnchereManager {
 	private static EnchereManager instance;
@@ -57,6 +55,7 @@ public class EnchereManager {
 		}
 	}
 
+
 	public void propositionEnchere(Utilisateur utilisateur, ArticleVendu article, int propostionEnchere)
 			throws BusinessException {
 		enchereDAO.encherirSurUnObjet(utilisateur, article, propostionEnchere);
@@ -81,5 +80,18 @@ public class EnchereManager {
 		ArticleVendu article = enchereDAO.descriptionArticle(noArticle);
 		return article;
 	}
+
+public Utilisateur connexionByPseudoOrMail(Utilisateur user) throws BusinessException {
+	Utilisateur utilisateur = enchereDAO.verificationByPseudoAndMail(user);
+	return utilisateur;
+}
+
+//public Utilisateur recuperationPseudoSession(Utilisateur user) throws BusinessException {
+//	Utilisateur pseudo = enchereDAO.recuperationPseudo(user);		
+//	return pseudo;
+//}
+
+
+
 
 }
