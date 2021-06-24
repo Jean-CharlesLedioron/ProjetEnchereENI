@@ -53,7 +53,7 @@
                       </div>
                     </form>
                 <div class="row col-sm-4">
-                    <button id="creation" href="./ServletInscription">Creer un compte</button>
+                    <button id="creation" href="Inscription">Creer un compte</button>
                 </div>
     </div> 
 </div>

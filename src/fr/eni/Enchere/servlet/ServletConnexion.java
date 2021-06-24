@@ -53,7 +53,7 @@ public class ServletConnexion extends HttpServlet {
 				Utilisateur utilisateur = EnchereManager.getInstance().connexionByPseudoOrMail(user);
 					if (utilisateur.getPseudo() != null) {
 					session.setAttribute("pseudo", utilisateur.getPseudo());
-					RequestDispatcher rf = request.getRequestDispatcher("/WEB-INF/loginsucces.jsp");
+					RequestDispatcher rf = request.getRequestDispatcher("ServletAccueil");
 					rf.forward(request, response);
 
 				} else {

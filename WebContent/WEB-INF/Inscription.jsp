@@ -108,7 +108,7 @@
 							<button type="submit" class="btn btn-primary">Créer</button>
 						</div>
 						<div class="col-md-2 col-md-offset-4">
-							<a href="home" class="btn btn-primary">Annuler</a>
+							<a href="ServletAccueil" class="btn btn-primary">Annuler</a>
 						</div>
 					</div>
 

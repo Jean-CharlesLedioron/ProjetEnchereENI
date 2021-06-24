@@ -21,18 +21,10 @@ import fr.eni.Enchere.exception.BusinessException;
 
 public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
-	private static final String SELECT_ALL=" SELECT " +
-			"a.date_fin_enchere " +
-			"a.nom_article"+
-			"a.prix_initial"+
-			"a.no_article"+
-			"u.pseudo"+
-			"e.montant_enchere"+
-			"FROM" + 
-			"ARTICLES_VENDUS a" + 
-			"INNER JOIN UTILISATEURS u ON a.no_utilisateur = u.no_utilisateur"+
-			"LEFT JOIN ( SELECT MAX(montant_enchere) as montant_enchere ,no_article"+
-			"FROM ENCHERES GROUP BY no_article) e ON e.no_article=a.no_article";
+	private static final String SELECT_ALL="SELECT a.date_fin_encheres, a.nom_article,a.prix_initial,a.no_article,u.pseudo,e.montant_enchere FROM" + 
+			"			ARTICLES_VENDUS a INNER JOIN UTILISATEURS u ON a.no_utilisateur = u.no_utilisateur" + 
+			"			LEFT JOIN ( SELECT MAX(montant_enchere) as montant_enchere ,no_article" + 
+			"			FROM ENCHERES GROUP BY no_article) e ON e.no_article=a.no_article";
 	
 	private static final String INSERT_NOUVEL_ADHERENT = "INSERT INTO UTILISATEURS" + 
 			"           (pseudo" + 
@@ -435,7 +427,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			ArticleVendu enchere = new ArticleVendu();
 			while(rs.next())
 				{
-				LocalDateTime dateFin = rs.getTimestamp("date_fin_enchere").toLocalDateTime();
+				LocalDateTime dateFin = rs.getTimestamp("date_fin_encheres").toLocalDateTime();
 				String nomArticle = rs.getString("nom_article");
 				Utilisateur pseudo = new Utilisateur(rs.getString("pseudo"));
 				int prixInitial = rs.getInt("prix_initial");
@@ -444,7 +436,6 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				List<Enchere> listeMonstantEnchere= new ArrayList<Enchere>();
 				listeMonstantEnchere.add(montantEnchere);
 				enchere = new ArticleVendu(noArticle,nomArticle,dateFin,prixInitial,pseudo,listeMonstantEnchere);
-				
 				listeEncheres.add(enchere);
 			
 				}
