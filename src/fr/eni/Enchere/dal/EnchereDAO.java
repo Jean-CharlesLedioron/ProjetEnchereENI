@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.eni.Enchere.bo.ArticleVendu;
 import fr.eni.Enchere.bo.Categorie;
+import fr.eni.Enchere.bo.Enchere;
 import fr.eni.Enchere.bo.Retrait;
 import fr.eni.Enchere.bo.Utilisateur;
 import fr.eni.Enchere.exception.BusinessException;
@@ -29,6 +30,8 @@ public interface EnchereDAO {
 	
 	public Utilisateur verificationByPseudoAndMail(Utilisateur user) throws BusinessException;
 
-	//public Utilisateur recuperationPseudo(Utilisateur user) throws BusinessException;
+	public List<ArticleVendu> selectAllEnchere() throws BusinessException;
+
+	//public Utilisateur recuperationPseudo(Utilisateur user) throws BusinessException; Théo
 
 }

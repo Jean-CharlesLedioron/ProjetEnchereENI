@@ -70,4 +70,8 @@ public abstract class CodesResultatDAL {
 	 * Echec de la mise à jour des crédits
 	 */
 	public static final int ECHEC_PRISE_EN_COMPTE_CREDIT = 10312;
+/**
+ * Erreur à la lecture des enchere
+ */
+	public static final int LECTURE_ENCHERE_ECHEC = 10200;
 }

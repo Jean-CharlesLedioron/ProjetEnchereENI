@@ -1,6 +1,5 @@
 package fr.eni.Enchere.bo;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +12,28 @@ public class ArticleVendu {
 	private Integer prixInitial;
 	private Integer prixVente;
 	private Utilisateur utilisateur;
+	
+	
+	/**
+	 * Constructeur liste d'enchere de l'acceuil
+	 * @param noArticle
+	 * @param nomArticle
+	 * @param dateFinEnchere
+	 * @param prixInitial
+	 * @param utilisateur
+	 * @param enchere
+	 */
+	public ArticleVendu(Integer noArticle, String nomArticle, LocalDateTime dateFinEnchere, Integer prixInitial,
+			Utilisateur utilisateur, List<Enchere> enchere) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.dateFinEnchere = dateFinEnchere;
+		this.prixInitial = prixInitial;
+		this.utilisateur = utilisateur;
+		this.enchere = enchere;
+	}
+
 	private Categorie categorie;
 	private Retrait retrait;
 	private List<Enchere> enchere;
@@ -272,8 +293,35 @@ public class ArticleVendu {
 				+ prixInitial + ", prixVente=" + prixVente + ", noUtilisateur=" + utilisateur + ", noCategorie="
 				+ categorie + "]";
 	}
-	
+}	
 	
 	
 
-}
+
+//
+//public class ArticleVendu {
+//
+//	private int noArticle;
+//	private String nomArticle;
+//	private String description;
+//	private LocalDate dateDebutEncheres;
+//	private LocalDate dateFinEncheres;
+//	private int miseAPrix;
+//	private int prixVente;
+//	private Utilisateur noUtilisateur;
+//	
+//	
+//	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+//			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur noUtilisateur) {
+//		super();
+//		this.noArticle = noArticle;
+//		this.nomArticle = nomArticle;
+//		this.description = description;
+//		this.dateDebutEncheres = dateDebutEncheres;
+//		this.dateFinEncheres = dateFinEncheres;
+//		this.miseAPrix = miseAPrix;
+//		this.prixVente = prixVente;
+//		this.noUtilisateur = noUtilisateur;
+//	}
+//
+//}

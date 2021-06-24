@@ -1,9 +1,11 @@
 package fr.eni.Enchere.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.Enchere.bo.ArticleVendu;
 import fr.eni.Enchere.bo.Categorie;
+import fr.eni.Enchere.bo.Enchere;
 import fr.eni.Enchere.bo.Retrait;
 import fr.eni.Enchere.bo.Utilisateur;
 import fr.eni.Enchere.dal.DAOFactory;
@@ -86,12 +88,16 @@ public Utilisateur connexionByPseudoOrMail(Utilisateur user) throws BusinessExce
 	return utilisateur;
 }
 
+
+
 //public Utilisateur recuperationPseudoSession(Utilisateur user) throws BusinessException {
 //	Utilisateur pseudo = enchereDAO.recuperationPseudo(user);		
 //	return pseudo;
-//}
+//}  TODO Théophile
 
-
-
-
+public List<ArticleVendu> selectionnerTousLesEncheres() throws BusinessException {
+	List<ArticleVendu> listeEncheres = enchereDAO.selectAllEnchere();
+	return listeEncheres;
+		
+}
 }
