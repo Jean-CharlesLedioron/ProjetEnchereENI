@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
 
 import fr.eni.Enchere.bo.Utilisateur;
 import fr.eni.Enchere.exception.BusinessException;
@@ -31,16 +30,30 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	private static final String SELECT_LISTE_UTILISATEURS = "SELECT * FROM UTILISATEURS";
 	
-	//private static final String RECHERCHE_UTILISATEUR_BY_EMAIL_OR_PSEUDO = "SELECT pseudo , email FROM UTILISATEURS WHERE email=? or pseudo=? ";
+	private static final String RECHERCHE_UTILISATEUR_BY_EMAIL_OR_PSEUDO = "SELECT * FROM UTILISATEURS WHERE email=? or pseudo=? ";
+	
+	
 	
 	private static final String VERIFICATION_CONNEXION = "SELECT pseudo FROM UTILISATEURS WHERE (email=? or pseudo=?) AND mot_de_passe=? ";
 	
+	private static final String MODIFICATION_COMPTE="UPDATE utilisateurs SET ? WHERE pseudo=?";
+//	private static final String MODIFICATION_COMPTE_PSEUDO="UPDATE utilisateurs SET pseudo= ? WHERE email=?";
 	
 	
+	private static final String SUPPRIMER_COMPTE="DELETE FROM utilisateurs WHERE pseudo=? ";
+	
+	private static final String AFFICHE_VENDEUR_PAR_ID=  "SELECT pseudo"
+			+ ",nom"
+			+ ",prenom"
+			+ ",email"
+			+ ",telephone"
+			+ ",rue"
+			+ ",code_postal"
+			+ ",ville FROM utilisateurs WHERE pseudo =?";
 	
 
 	/**
-	 * Inscription d'un nouvel adhérent
+	 * Inscription d'un nouvel adhï¿½rent
 	 */
 	@Override
 	public void insertNouvelAdherent(Utilisateur utilisateur) throws BusinessException {
@@ -77,7 +90,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				listeUtilisateur.add(utilisateur);
 			}
 		} catch (Exception e) {
-			BusinessException businessException = new BusinessException();
+			BusinessException businessException =new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.PROBLEME_ACCES_BDD);
 			throw businessException;
 		}
@@ -92,7 +105,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	 * @throws SQLException
 	 */
 	public Utilisateur mappingUtilisateur (ResultSet rs) throws SQLException {
-		int noUtilisateur = rs.getInt("no_utilisateur");
+//		int noUtilisateur = rs.getInt("no_utilisateur");
 		String pseudo = rs.getString("pseudo");
 		String nom = rs.getString("nom");
 		String prenom = rs.getString("prenom");
@@ -101,13 +114,13 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		String rue = rs.getString("rue");
 		String cp = rs.getString("code_postal");
 		String ville = rs.getString("ville");
-		String mdp = rs.getString("mot_de_passe");
-		int credit = rs.getInt("credit");
-		byte admin = rs.getByte("administrateur");
-		Utilisateur utilisateur = new Utilisateur(noUtilisateur,pseudo,nom,prenom,email,telephone,rue,cp,ville,mdp,credit,admin);
+//		String mdp = rs.getString("mot_de_passe");
+//		int credit = rs.getInt("credit");
+//		byte admin = rs.getByte("administrateur");
+		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville); 
 		return utilisateur;
 	/**
-	 * SelectByPseudo et SelectByEmail pour vérifier que l'utilisateur n'existe pas déjà	
+	 * SelectByPseudo et SelectByEmail pour vï¿½rifier que l'utilisateur n'existe pas dï¿½jï¿½	
 	 */
 	}
 	@Override
@@ -126,6 +139,111 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		return dejaInscrit;
 	}
 	
+	/**
+	 * Modification du compte	
+	 */
+	@Override
+	public void modifierCompte(Utilisateur utilisateur, String newPassword, String pseudo) throws BusinessException {
+		try(Connection conex2 = ConnectionProvider.getConnection();)
+		
+		{
+			StringBuilder sql=new StringBuilder();
+			
+			if(!(utilisateur.getPseudo()==null)&& !verificationMailPseudoDejaUtilise(utilisateur))
+				{
+					sql.append("pseudo="+utilisateur.getPseudo()+",");
+				
+				}
+				else if(!(utilisateur.getEmail()==null)&& !verificationMailPseudoDejaUtilise(utilisateur)) 
+				{
+					sql.append("email="+utilisateur.getEmail()+",");
+				}
+				
+				else if(!(utilisateur.getNom()==null)) 
+				{
+					sql.append("nom="+utilisateur.getNom()+",");
+				}
+				else if(!(utilisateur.getPrenom()==null)) 
+				{
+					sql.append("prenom="+utilisateur.getPrenom()+",");
+				}
+				
+				else if(!(utilisateur.getTelephone()==null)) 
+				{
+					sql.append("telephone="+utilisateur.getTelephone()+",");
+				}
+				else if(!(utilisateur.getRue()==null)) 
+				{
+					sql.append("rue="+utilisateur.getRue()+",");
+				}
+				else if(!(utilisateur.getCodePostal()==null)) 
+				{
+					sql.append("code_postal="+utilisateur.getCodePostal()+",");
+				}
+				else if(!(utilisateur.getVille()==null)) 
+				{
+					sql.append("ville="+utilisateur.getVille()+",");
+				}
+				else if(!((utilisateur.getMotDePasse())==null))
+				{
+					utilisateur.setMotDePasse(newPassword);
+					String changePassword=utilisateur.getMotDePasse();
+					sql.append("mot_de_passe="+changePassword);
+				}
+				
+			PreparedStatement stmt=conex2.prepareStatement(MODIFICATION_COMPTE);
+			stmt.setString(1, sql.toString());
+			stmt.setString(2, pseudo);
+			stmt.executeUpdate();
+			stmt.close();
+					
+		}catch (Exception e){
+			BusinessException businessException =new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.SAISIE_INCORRECTE);
+			throw businessException;
+		}
+	
+	/**
+	 * Suppression du compte	
+	*/
+	}
+	@Override
+	public void supprimerCompte(String pseudo) throws BusinessException {
+		try (Connection conex2 = ConnectionProvider.getConnection();
+				 PreparedStatement stmt= conex2.prepareStatement(SUPPRIMER_COMPTE);)
+		{
+			stmt.setString(1, pseudo);
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			BusinessException businessException =new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.SUPPRESSION_IMPOSSIBLE);
+			throw businessException;
+		}
+	}
+	
+	/*
+	 * Affichage des donnÃ©es du vendeur
+	 * */
+	@Override
+	public Utilisateur afficherVendeur(String pseudoVendeur) throws BusinessException {
+		Utilisateur id= new Utilisateur();
+		try(Connection conex2 = ConnectionProvider.getConnection();
+				PreparedStatement stmt= conex2.prepareStatement(AFFICHE_VENDEUR_PAR_ID);){
+				stmt.setString(1, pseudoVendeur);
+			try(ResultSet rs= stmt.executeQuery()){
+				if(rs.next()) {
+					id=mappingUtilisateur(rs);
+				}
+			}
+		}catch (Exception e){
+			BusinessException businessException =new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.AFFICHE_IMPOSSIBLE);
+			throw businessException;
+		}
+		return id;
+		
+	}
+	@Override
 	public Utilisateur verificationByPseudoAndMail(Utilisateur user) throws BusinessException {
 		boolean connexionVerifie=false;
 		Utilisateur utilisateur = new Utilisateur();
@@ -145,21 +263,12 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		}
 		return utilisateur;
 	}
-	/*@Override
+	@Override
 	public Utilisateur recuperationPseudo(Utilisateur user) throws BusinessException {
-		Utilisateur idUser = new Utilisateur();
-		try (Connection con = ConnectionProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(RECHERCHE_UTILISATEUR_BY_EMAIL_OR_PSEUDO )){
-			pstmt.setString(1, user.getEmail());
-			pstmt.setString(2, user.getPseudo());
-			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
-				String pseudo = rs.getString("pseudo");
-				idUser = new Utilisateur(pseudo);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return idUser;
-	}*/
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 }
+

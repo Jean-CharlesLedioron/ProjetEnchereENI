@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.Accueil.Exception.BusinessException;
-import fr.eni.Accueil.bo.Enchere;
+import fr.eni.Enchere.exception.BusinessException;
+import fr.eni.Enchere.bo.Enchere;
 
 
 

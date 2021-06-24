@@ -3,9 +3,12 @@ package fr.eni.Enchere.bll;
 public abstract class CodesResultatBLL {
 
 	/**
-	 * Echec de la créaton de compte adhérent car pseudo déjà utilisé
+	 * Echec de la crï¿½aton de compte adhï¿½rent car pseudo dï¿½jï¿½ utilisï¿½
 	 */
 	public static final int REGLE_PSEUDO_DEJA_UTILISE=20001;
 	
-	
+	/**
+	 * Echec de la modification du mot de passe. le mots de passe ne correspondent pas 
+	 */
+	public static final int REGLE_COINCIDENCE_MOTDEPASSE=20105;
 }

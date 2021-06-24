@@ -13,12 +13,13 @@ public class Utilisateur {
 	private String motDePasse;
 	private int credit;
 	private byte administrateur;
+	private String newPassword;
 	
 	
 	
 	
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par dï¿½faut
 	 */
 	public Utilisateur() {
 		super();
@@ -27,7 +28,7 @@ public class Utilisateur {
 
 	/**
 	 * 
-	 * Constructeur complet d'un adhérent
+	 * Constructeur complet d'un adhï¿½rent
 	 * @param noUtilisateur
 	 * @param pseudo
 	 * @param nom
@@ -61,7 +62,7 @@ public class Utilisateur {
 
 	/**
 	 * 
-	 * Contructeur sans id pour la création de compte
+	 * Contructeur sans id pour la crï¿½ation de compte
 	 * @param pseudo
 	 * @param nom
 	 * @param prenom
@@ -90,19 +91,53 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 	
+	/*
+	 * Constructeur pour l'affichage du vendeur
+	*/
+	public Utilisateur (String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String codePostal, String ville) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+	}
+	
+	/*
+	 * Constructeur pour la modification de donnÃ©es 
+	*/
+	public Utilisateur (String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String codePostal, String ville, String password, String newPassword) {
+		
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse=password;
+		this.newPassword=newPassword;
+	}
 	
 	public Utilisateur(String login, String mail, String password) {
-	this.pseudo=login;
-	this.email=mail;
-	this.motDePasse=password;
-	}
+		this.pseudo=login;
+		this.email=mail;
+		this.motDePasse=password;
+		}
 
 
-	public Utilisateur(String pseudo) {
-		this.pseudo=pseudo;
-	}
-
-
+		public Utilisateur(String pseudo) {
+			this.pseudo=pseudo;
+		}
+	
+	
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
@@ -182,6 +217,22 @@ public class Utilisateur {
 				+ prenom + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal="
 				+ codePostal + ", ville=" + ville + ", motDePasse=" + motDePasse + ", credit=" + credit
 				+ ", administrateur=" + administrateur + "]";
+	}
+
+
+	/**
+	 * @return the newPassword
+	 */
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+
+	/**
+	 * @param newPassword the newPassword to set
+	 */
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 
 

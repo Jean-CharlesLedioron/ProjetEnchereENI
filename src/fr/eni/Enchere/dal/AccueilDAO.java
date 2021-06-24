@@ -2,8 +2,8 @@ package fr.eni.Enchere.dal;
 
 import java.util.List;
 
-import fr.eni.Accueil.Exception.BusinessException;
-import fr.eni.Accueil.bo.Enchere;
+import fr.eni.Enchere.exception.BusinessException;
+import fr.eni.Enchere.bo.Enchere;
 
 public interface AccueilDAO {
 

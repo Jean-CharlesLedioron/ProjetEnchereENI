@@ -6,4 +6,7 @@ public abstract class DAOFactory {
 		return new EnchereDAOJdbcImpl();
 	}
 
+	public static AccueilDAO getAccueilDAO() {
+		return new AccueilDAOJdbcImpl();
+	}
 }

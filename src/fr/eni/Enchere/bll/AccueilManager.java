@@ -5,10 +5,10 @@ package fr.eni.Enchere.bll;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.Accueil.Exception.BusinessException;
-import fr.eni.Accueil.bo.Enchere;
-import fr.eni.Accueil.dal.DAOFactory;
-import fr.eni.Accueil.dal.AccueilDAO;
+import fr.eni.Enchere.exception.BusinessException;
+import fr.eni.Enchere.bo.Enchere;
+import fr.eni.Enchere.dal.DAOFactory;
+import fr.eni.Enchere.dal.AccueilDAO;
 
 public class AccueilManager {
 
