@@ -1,0 +1,66 @@
+body{
+    background-color: floralwhite;
+}
+section{
+    padding: 5%;
+}
+
+header{
+	background-color: black; 
+	padding: 5%;
+	margin: 0%;
+}
+
+a{
+	color: white;
+}
+
+.header-slogan{
+	font-size: 40px;
+}
+
+h1{
+	color: black;
+	text-align: center;
+}
+#login{
+	text-align: right;
+}
+#subscribe{
+	text-align: right;
+}
+
+#selection{
+	float: left;
+	padding: 25px;
+	padding-right: 50px;
+	width: 45%;
+	vertical-align: baseline;
+	
+	margin-top: 50px;
+	 }
+
+#categorie, #Filtre	{ 
+	
+	align-content: space-around;
+	border-style: solid;
+    border-color: lightgray;
+    border-width: 2px;
+    padding: 5px;
+    border-radius: 10px;
+    width: 300px;
+	
+}
+#envoyer{
+	display: inline-block;
+	float: right;
+    background-color: #d5a770;
+    border-style: solid;
+    border-color: #d5a770;
+    color: white;
+    padding: 30px 60px;
+    border-radius: 30px;
+    margin-top: 120px;
+    margin-left: 180px; 
+    
+}
