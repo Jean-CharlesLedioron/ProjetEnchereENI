@@ -56,9 +56,18 @@
 							<div class="col-xs-9 offset-xs-3 col-md-9 offset-md-3">${article.categorie.libelle}</div>
 						</div>
 						<div class="row">
+						<c:choose>
+						<c:when test="${meilleureEnchere.montantEnchere eq null}">
 							<div class="col-xs-4 col-md-3">Meilleure offre :</div>
+							<div class="col-xs-8 offset-xs-4 col-md-9 offset-md-3">Aucune enchère</div>
+							</c:when>
+							<c:otherwise>
+								<div class="col-xs-4 col-md-3">Meilleure offre :</div>
 							<div class="col-xs-8 offset-xs-4 col-md-9 offset-md-3">${meilleureEnchere.montantEnchere}
 								par ${meilleureEnchere.noUtilisateur.pseudo}</div>
+							</c:otherwise>
+							</c:choose>
+							
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-md-3">Mise à prix :</div>
@@ -67,8 +76,8 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-md-3">Fin de l'enchère :</div>
-							<div class="col-xs-8 offset-xs-4 col-md-9 offset-md-3">${article.dateFinEnchere}
-							</div>
+							<input class="col-xs-8 offset-xs-4 col-md-9 offset-md-3" type="datetime-local" id="finEnchere"
+								name="finEnchere" value="${article.dateFinEnchere}" disabled="disabled">
 						</div>
 						<div class="row">
 							<div class="col-xs-3 col-md-3">Retrait :</div>
@@ -83,12 +92,12 @@
 								class="col-xs-9 offset-xs-3 col-md-9 offset-md-3">${article.utilisateur.pseudo}</a>
 						</div>
 						<c:if
-							test="${!(article.utilisateur.pseudo).equals(session.pseudo)}">
+							test="${article.utilisateur.pseudo ne pseudo}">
 							<div class="row">
-								<div class="col-xs-4 col-md-3">Ma proposition :</div>
+								<label class="col-xs-4 col-md-3">Ma proposition :</label>
 								<div class="col-xs-4 offset-xs-4 col-md-2 offset-md-3">
 								<c:choose>
-								<c:when test="${meilleureEnchere.montantEnchere}>${article.prixInitial}">
+								<c:when test="${meilleureEnchere.montantEnchere  gt  article.prixInitial}">
 									<input type="number" name="propositionEnchere"
 										min="${meilleureEnchere.montantEnchere}"
 										value="${meilleureEnchere.montantEnchere}">
@@ -108,7 +117,7 @@
 						</c:if>
 						<br> <br>
 						<c:if
-							test="${!(article.utilisateur.pseudo).equals(session.pseudo)}">
+							test="${article.utilisateur.pseudo ne pseudo}">
 							<div class="row">
 								<div class="col-xs-2 col-xs-offset-3">
 									<a href="home" class="btn btn-primary">Retour</a>
@@ -116,19 +125,15 @@
 							</div>
 						</c:if>
 						<c:if
-							test="${(article.utilisateur.pseudo).equals(session.pseudo)}">
+							test="${article.utilisateur.pseudo eq pseudo}">
 							<div class="row">
-								<div class="col-xs-2 col-xs-offset-1">
+								<div class="col-xs-2">
 									<a href="home" class="btn btn-primary">Modifier l'enchère</a>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-2 col-xs-offset-4">
+								<div class="col-xs-2 col-xs-offset-2">
 									<a href="home" class="btn btn-primary">Supprimer l'enchère</a>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-2 col-xs-offset-7">
+								<div class="col-xs-2 col-xs-offset-2">
 									<a href="home" class="btn btn-primary">Retour</a>
 								</div>
 							</div>

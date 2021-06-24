@@ -29,10 +29,10 @@ public class ServletVisualisationEnchere extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer id = 1;
+		Integer id = 2;// EN DUR TODO
 		HttpSession session = request.getSession();
 		session.setAttribute("objetEnchere", id);
-		session.setAttribute("pseudo", "DK");
+		session.setAttribute("pseudo", "Diego");// EN DUR TODO
 		request.getParameter("objetEnchere");
 		try {
 			ArticleVendu article = EnchereManager.getInstance().desriptionArticle((Integer) session.getAttribute("objetEnchere"));

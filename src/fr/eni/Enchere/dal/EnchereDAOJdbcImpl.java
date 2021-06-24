@@ -49,7 +49,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	private static final String SELECT_NUMERO_UTILISATEUR_ET_CREDIT_BY_PSEUDO = "SELECT no_utilisateur,credit FROM UTILISATEURS WHERE pseudo=? ";
 	
-	private static final String INSERT_ENCHERE = "INSERT INTO ENCHERE VALUES (?,?,?,?)";
+	private static final String INSERT_ENCHERE = "INSERT INTO ENCHERES VALUES (?,?,?,?)";
 	
 	private static final String SELECT_ADRESSE_BY_PSEUDO = "SELECT pseudo, rue, code_postal, ville FROM UTILISATEURS WHERE pseudo=? ";
 	
@@ -178,9 +178,12 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			pstmt.setInt(1, article.getNoArticle());
 			pstmt.setInt(2, article.getNoArticle());
 			ResultSet rs = pstmt.executeQuery();
-			String pseudoMeilleurEnchere = rs.getString("pseudo");
-			Integer meilleureEnchere = rs.getInt("montant_enchere_max");
-			rs.next();
+			String pseudoMeilleurEnchere = null;
+			Integer meilleureEnchere = 0;
+			if (rs.next()) {
+				pseudoMeilleurEnchere = rs.getString("pseudo");
+				meilleureEnchere = rs.getInt("montant_enchere");
+			}
 			if (propositionEnchere > meilleureEnchere ) {
 				pstmt2.setString(1, utilisateur.getPseudo());
 				ResultSet rs2 = pstmt2.executeQuery();
@@ -188,8 +191,9 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				if (propositionEnchere<= rs2.getInt("credit")) {
 					pstmt3.setInt(1, rs2.getInt("no_utilisateur"));
 					pstmt3.setInt(2, article.getNoArticle());
-					pstmt3.setDate(3, Date.valueOf(LocalDate.now()));
+					pstmt3.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
 					pstmt3.setInt(4, propositionEnchere);
+					System.out.println(pstmt3);
 					pstmt3.executeUpdate();
 					miseAJourCredit(utilisateur,propositionEnchere,con,pseudoMeilleurEnchere,meilleureEnchere);
 				}
@@ -214,9 +218,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private void miseAJourCredit(Utilisateur utilisateur, int propositionEnchere, Connection con, String pseudoMeilleurEnchere, Integer meilleureEnchere) throws BusinessException {
 		try (PreparedStatement pstmt = con.prepareStatement(UPDATE_REMBOURSEMENT_ENCHERE_PAR_PSEUDO);
 				PreparedStatement pstmt2 = con.prepareStatement(UPDATE_DEBIT_ENCHERE_PAR_PSEUDO)) {
-			pstmt.setInt(1,meilleureEnchere);
-			pstmt.setString(2, pseudoMeilleurEnchere);
-			pstmt.executeUpdate();
+			if (pseudoMeilleurEnchere!=null) {
+				pstmt.setInt(1,meilleureEnchere);
+				pstmt.setString(2, pseudoMeilleurEnchere);
+				pstmt.executeUpdate();
+			}
 			pstmt2.setInt(1,propositionEnchere);
 			pstmt2.setString(2, utilisateur.getPseudo());
 			pstmt2.executeUpdate();
@@ -342,7 +348,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				String description = rs.getString("description");
 				Categorie libelle = new Categorie(rs.getString("libelle"));
 				Integer prix = rs.getInt("prix_initial");
-				LocalDateTime dateFin = Instant.ofEpochMilli(rs.getDate("date_fin_encheres").getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+				LocalDateTime dateFin = rs.getTimestamp("date_fin_encheres").toLocalDateTime();
 				String rue = rs.getString("rue");
 				String cp = rs.getString("code_postal");
 				String ville = rs.getString("ville");
