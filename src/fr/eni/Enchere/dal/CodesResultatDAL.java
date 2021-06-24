@@ -7,7 +7,7 @@ public abstract class CodesResultatDAL {
 	public static final int PROBLEME_ACCES_BDD=10300;
 	
 	/**
-	 * les informations saisies présente une erreur de format
+	 * les informations saisies prï¿½sente une erreur de format
 	 */
 	public static final int SAISIE_INCORRECTE=10301;
 	
@@ -74,4 +74,17 @@ public abstract class CodesResultatDAL {
  * Erreur à la lecture des enchere
  */
 	public static final int LECTURE_ENCHERE_ECHEC = 10200;
+
+	
+	/**
+	 * Echec de suppression du compte
+	 */
+	public static final int SUPPRESSION_IMPOSSIBLE=10005;
+	
+	/**
+	 * Echec de L'affichage de l'utilisateur 
+	 */
+	public static final int AFFICHE_IMPOSSIBLE = 10009;
+	
+	
 }

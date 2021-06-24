@@ -9,10 +9,13 @@ public abstract class CodesResultatBLL {
 	 */
 	public static final int REGLE_MOT_DE_PASSE_NON_INDENTIQUE=20300;
 	/**
-	 * Echec de la créaton de compte adhérent car pseudo déjà utilisé
+	 * Echec de la crï¿½aton de compte adhï¿½rent car pseudo dï¿½jï¿½ utilisï¿½
 	 */
 	public static final int REGLE_PSEUDO_DEJA_UTILISE=20301;
 	
 	
-	
+	/**
+	 * Echec de la modification du mot de passe. le mots de passe ne correspondent pas 
+	 */
+	public static final int REGLE_COINCIDENCE_MOTDEPASSE=20105;
 }

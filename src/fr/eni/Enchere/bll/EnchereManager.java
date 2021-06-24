@@ -7,6 +7,7 @@ import fr.eni.Enchere.bo.ArticleVendu;
 import fr.eni.Enchere.bo.Categorie;
 import fr.eni.Enchere.bo.Enchere;
 import fr.eni.Enchere.bo.Retrait;
+
 import fr.eni.Enchere.bo.Utilisateur;
 import fr.eni.Enchere.dal.DAOFactory;
 import fr.eni.Enchere.dal.EnchereDAO;
@@ -82,10 +83,38 @@ public class EnchereManager {
 		ArticleVendu article = enchereDAO.descriptionArticle(noArticle);
 		return article;
 	}
+	
+	
+	public Utilisateur connexionByPseudoOrMail(Utilisateur user) throws BusinessException {
+		Utilisateur utilisateur = enchereDAO.verificationByPseudoAndMail(user);
+		return utilisateur;
+	}
 
-public Utilisateur connexionByPseudoOrMail(Utilisateur user) throws BusinessException {
-	Utilisateur utilisateur = enchereDAO.verificationByPseudoAndMail(user);
-	return utilisateur;
+	public Utilisateur recuperationPseudoSession(Utilisateur user) throws BusinessException {
+		Utilisateur pseudo = enchereDAO.recuperationPseudo(user);		
+		return pseudo;
+	}
+	
+	
+/*
+ * Modification du compte utilisateur
+ * */
+
+public void modifierCompte(Utilisateur utilisateur, String newPassword, String confirmPassword, String pseudo) throws BusinessException{
+	if(confirmPassword.equals(newPassword)) 
+	{
+	BusinessException businessException = new BusinessException();
+	if (!enchereDAO.verificationMailPseudoDejaUtilise(utilisateur)) {
+		enchereDAO.modifierCompte(utilisateur, newPassword, pseudo);
+	}else {
+		businessException.ajouterErreur(CodesResultatBLL.REGLE_PSEUDO_DEJA_UTILISE);
+		throw businessException;
+	}
+	}else {
+		BusinessException businessException=new BusinessException();
+		businessException.ajouterErreur(CodesResultatBLL.REGLE_COINCIDENCE_MOTDEPASSE);
+	}
+	
 }
 
 
@@ -98,6 +127,18 @@ public Utilisateur connexionByPseudoOrMail(Utilisateur user) throws BusinessExce
 public List<ArticleVendu> selectionnerTousLesEncheres() throws BusinessException {
 	List<ArticleVendu> listeEncheres = enchereDAO.selectAllEnchere();
 	return listeEncheres;
-		
+}
+/*
+ * Suppression du compte utilisateur
+ * */
+public void supprimerCompte (String pseudo) throws BusinessException{
+		enchereDAO.supprimerCompte(pseudo);
+}
+
+/*
+ * Affichage des données du vendeur
+ * */
+public Utilisateur afficherVendeur (String pseudoVendeur) throws BusinessException{
+	return this.enchereDAO.afficherVendeur(pseudoVendeur);
 }
 }

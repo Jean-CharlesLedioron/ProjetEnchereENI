@@ -4,7 +4,6 @@ import java.util.List;
 
 import fr.eni.Enchere.bo.ArticleVendu;
 import fr.eni.Enchere.bo.Categorie;
-import fr.eni.Enchere.bo.Enchere;
 import fr.eni.Enchere.bo.Retrait;
 import fr.eni.Enchere.bo.Utilisateur;
 import fr.eni.Enchere.exception.BusinessException;
@@ -34,4 +33,11 @@ public interface EnchereDAO {
 
 	//public Utilisateur recuperationPseudo(Utilisateur user) throws BusinessException; Théo
 
+	public Utilisateur recuperationPseudo(Utilisateur user) throws BusinessException;
+	
+	public void modifierCompte(Utilisateur utilisateur, String newPassword, String pseudo) throws BusinessException;
+	
+	public void supprimerCompte(String pseudo) throws BusinessException;
+	
+	public Utilisateur afficherVendeur(String pseudoVendeur) throws BusinessException;
 }
