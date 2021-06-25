@@ -70,7 +70,7 @@ public class ServletVisualisationEnchere extends HttpServlet {
 			ArticleVendu articleAffiche = EnchereManager.getInstance().desriptionArticle(id);
 			request.setAttribute("article", articleAffiche);
 			for (Enchere enchere : articleAffiche.getEnchere()) {
-				request.setAttribute("meilleureEnchere", enchere);
+			request.setAttribute("meilleureEnchere", enchere);
 			}
 			session.setAttribute("idArticle", id);
 		} catch (BusinessException businessException) {

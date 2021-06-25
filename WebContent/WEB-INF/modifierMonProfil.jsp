@@ -120,7 +120,7 @@
 						<a href="${pageContext.request.contextPath}/Supprimer?noUtilisateur=${utilisateurs.pseudo}" class="btn btn-primary" >Supprimer mon compte</a>
 					</div>
 					<div class="col-sm-1 col-sm-offset-2">
-						<a href="monProfil.jsp" class="btn btn-primary">Annuler</a>
+						<a href="ServletAccueil" class="btn btn-primary">Annuler</a>
 					</div>
 					
 				</div>

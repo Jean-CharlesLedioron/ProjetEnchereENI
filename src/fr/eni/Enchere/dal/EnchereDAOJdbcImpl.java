@@ -190,8 +190,10 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	@Override
 	public void encherirSurUnObjet(Utilisateur utilisateur, ArticleVendu article, int propositionEnchere)
 			throws BusinessException {
+		BusinessException businessException =new BusinessException();
 		try (Connection con = ConnectionProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(SELECT_PSEUDO_ET_MONTANT_MEILLEURE_ENCHERE_PAR_ID_ARTICLE);
 				PreparedStatement pstmt2 = con.prepareStatement(SELECT_NUMERO_UTILISATEUR_ET_CREDIT_BY_PSEUDO); PreparedStatement pstmt3 = con.prepareStatement(INSERT_ENCHERE)) {
+			
 			pstmt.setInt(1, article.getNoArticle());
 			pstmt.setInt(2, article.getNoArticle());
 			ResultSet rs = pstmt.executeQuery();
@@ -214,17 +216,14 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 					miseAJourCredit(utilisateur,propositionEnchere,con,pseudoMeilleurEnchere,meilleureEnchere);
 				}
 				else {
-					BusinessException businessException =new BusinessException();
 					businessException.ajouterErreur(CodesResultatDAL.CREDIT_UTILISATEUR_INSUFISSANT);
 					throw businessException;
 				}
 			}else {
-					BusinessException businessException =new BusinessException();
 					businessException.ajouterErreur(CodesResultatDAL.ENCHERE_INSUFFISANTE);
 					throw businessException;
 			}
 		}catch (Exception e) {
-			BusinessException businessException =new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.ECHEC_DE_PRISE_EN_COMPTE_DE_L_ENCHERE);
 			throw businessException;
 		}

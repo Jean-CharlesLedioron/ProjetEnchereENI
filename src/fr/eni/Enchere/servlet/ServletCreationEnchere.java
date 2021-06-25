@@ -38,7 +38,6 @@ public class ServletCreationEnchere extends HttpServlet {
 			List<String> listeCategorie = EnchereManager.getInstance().retourneListeCategorie();
 			request.setAttribute("listeCategorie", listeCategorie);
 			HttpSession session = request.getSession();
-			session.setAttribute("pseudo", "DK");// EN DUR TODO
 			Utilisateur adresseRetraitDefault = EnchereManager.getInstance().retourneAdresseRetrait((String) session.getAttribute("pseudo"));
 			request.setAttribute("adresse", adresseRetraitDefault);
 			} catch (BusinessException businessException) {

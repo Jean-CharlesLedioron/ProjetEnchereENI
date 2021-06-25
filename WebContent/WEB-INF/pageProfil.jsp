@@ -111,7 +111,7 @@
 				
 				<div class="form-group">
 					<div class="col-md-2 col-md-offset-1">
-						<a href="monProfil.jsp" class="btn btn-primary">Revenir à mon compte</a>
+						<a href="ServletAccueil" class="btn btn-primary">Revenir à l'accueil</a>
 					</div>
 				</div>
 				<c:if test="${vendeur.pseudo eq pseudo}">

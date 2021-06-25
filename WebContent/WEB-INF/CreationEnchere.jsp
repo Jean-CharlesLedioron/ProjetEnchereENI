@@ -114,14 +114,14 @@
 							</div>
 							<br>
 							<div class="row">
-								<div class="col-xs-1 offset-xs-1 col-md-2 offset-md-1">
+								<div class="col-xs-2"">
 									<button type="submit" class="btn btn-primary">Créer</button>
 								</div>
-								<div class="col-xs-1 offset-xs-4 col-md-2 offset-md-5">
+								<div class="col-xs-2 col-xs-offset-2">
 									<button type="reset" class="btn btn-primary">Reset</button>
 								</div>
-								<div class="col-xs-1 offset-xs-7 col-md-2 offset-md-9">
-									<a href="home" class="btn btn-primary">Retour</a>
+								<div class="col-xs-2 col-xs-offset-2">
+									<a href="ServletAccueil" class="btn btn-primary">Retour</a>
 								</div>
 							</div>
 						</div>

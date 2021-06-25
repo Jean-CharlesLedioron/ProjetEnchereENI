@@ -56,18 +56,19 @@
 							<div class="col-xs-9 offset-xs-3 col-md-9 offset-md-3">${article.categorie.libelle}</div>
 						</div>
 						<div class="row">
-						<c:choose>
-						<c:when test="${meilleureEnchere.montantEnchere eq null}">
-							<div class="col-xs-4 col-md-3">Meilleure offre :</div>
-							<div class="col-xs-8 offset-xs-4 col-md-9 offset-md-3">Aucune enchère</div>
-							</c:when>
-							<c:otherwise>
-								<div class="col-xs-4 col-md-3">Meilleure offre :</div>
-							<div class="col-xs-8 offset-xs-4 col-md-9 offset-md-3">${meilleureEnchere.montantEnchere}
-								par ${meilleureEnchere.noUtilisateur.pseudo}</div>
-							</c:otherwise>
+							<c:choose>
+								<c:when test="${meilleureEnchere.montantEnchere eq null}">
+									<div class="col-xs-4 col-md-3">Meilleure offre :</div>
+									<div class="col-xs-8 offset-xs-4 col-md-9 offset-md-3">Aucune
+										enchère</div>
+								</c:when>
+								<c:otherwise>
+									<div class="col-xs-4 col-md-3">Meilleure offre :</div>
+									<div class="col-xs-8 offset-xs-4 col-md-9 offset-md-3">${meilleureEnchere.montantEnchere}
+										par ${meilleureEnchere.noUtilisateur.pseudo}</div>
+								</c:otherwise>
 							</c:choose>
-							
+
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-md-3">Mise à prix :</div>
@@ -76,8 +77,9 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-md-3">Fin de l'enchère :</div>
-							<input class="col-xs-8 offset-xs-4 col-md-9 offset-md-3" type="datetime-local" id="finEnchere"
-								name="finEnchere" value="${article.dateFinEnchere}" disabled="disabled">
+							<input class="col-xs-8 offset-xs-4 col-md-9 offset-md-3"
+								type="datetime-local" id="finEnchere" name="finEnchere"
+								value="${article.dateFinEnchere}" disabled="disabled">
 						</div>
 						<div class="row">
 							<div class="col-xs-3 col-md-3">Retrait :</div>
@@ -91,24 +93,23 @@
 							<a href="pageProfilid"
 								class="col-xs-9 offset-xs-3 col-md-9 offset-md-3">${article.utilisateur.pseudo}</a>
 						</div>
-						<c:if
-							test="${article.utilisateur.pseudo ne pseudo}">
+						<c:if test="${article.utilisateur.pseudo ne pseudo}">
 							<div class="row">
 								<label class="col-xs-4 col-md-3">Ma proposition :</label>
 								<div class="col-xs-4 offset-xs-4 col-md-2 offset-md-3">
-								<c:choose>
-								<c:when test="${meilleureEnchere.montantEnchere  gt  article.prixInitial}">
-									<input type="number" name="propositionEnchere"
-										min="${meilleureEnchere.montantEnchere}"
-										value="${meilleureEnchere.montantEnchere}">
+									<c:choose>
+										<c:when
+											test="${meilleureEnchere.montantEnchere  gt  article.prixInitial}">
+											<input type="number" name="propositionEnchere"
+												min="${meilleureEnchere.montantEnchere}"
+												value="${meilleureEnchere.montantEnchere}">
 										</c:when>
 										<c:otherwise>
-										<input type="number" name="propositionEnchere"
-										min="${article.prixInitial}"
-										value="${article.prixInitial}">
-										
+											<input type="number" name="propositionEnchere"
+												min="${article.prixInitial}" value="${article.prixInitial}">
+
 										</c:otherwise>
-										</c:choose>
+									</c:choose>
 								</div>
 								<div class="col-xs-1 offset-xs-11 col-md-3 offset-md-7">
 									<button type="submit" class="btn btn-primary">Enchérir</button>
@@ -116,16 +117,14 @@
 							</div>
 						</c:if>
 						<br> <br>
-						<c:if
-							test="${article.utilisateur.pseudo ne pseudo}">
+						<c:if test="${article.utilisateur.pseudo ne pseudo}">
 							<div class="row">
 								<div class="col-xs-2 col-xs-offset-3">
-									<a href="home" class="btn btn-primary">Retour</a>
+									<a href="ServletAccueil" class="btn btn-primary">Retour</a>
 								</div>
 							</div>
 						</c:if>
-						<c:if
-							test="${article.utilisateur.pseudo eq pseudo}">
+						<c:if test="${article.utilisateur.pseudo eq pseudo}">
 							<div class="row">
 								<div class="col-xs-2">
 									<a href="home" class="btn btn-primary">Modifier l'enchère</a>
@@ -134,7 +133,7 @@
 									<a href="home" class="btn btn-primary">Supprimer l'enchère</a>
 								</div>
 								<div class="col-xs-2 col-xs-offset-2">
-									<a href="home" class="btn btn-primary">Retour</a>
+									<a href="ServletAccueil" class="btn btn-primary">Retour</a>
 								</div>
 							</div>
 						</c:if>
