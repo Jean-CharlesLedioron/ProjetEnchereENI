@@ -52,9 +52,9 @@
                         </div>
                       </div>
                     </form>
+                    <br>
                 <div class="row col-sm-4">
-                <a href="Inscription" id="creation" class="btn btn-primary">Creer un compte</a>
-                    <button id="creation" href="Inscription">Creer un compte</button>
+                <a href="Inscription" id="buttonCreate">Creer un compte</a>
                 </div>
     </div> 
 </div>

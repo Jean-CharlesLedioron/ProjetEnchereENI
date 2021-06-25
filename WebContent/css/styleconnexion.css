@@ -1,71 +1,84 @@
-body{
-    background-color: floralwhite;
-}
-#content{
-    padding-top: 7%;
+body {
+	background-color: floralwhite;
 }
 
-form{
-    color: black;
-}
-h2{
-    text-align: center;
-    padding-bottom: 30px;
-}
-input{
-    color: black;
-    padding: 2px;
-    background-color: #f2f2f2;
-    
+#content {
+	padding-top: 7%;
 }
 
-#option{
-    text-align: center;
+form {
+	color: black;
 }
 
-#identifiant, #password{
-    border-style: solid;
-    border-color: lightgray;
-    border-width: 2px;
-    padding: 5px;
-    border-radius: 10px;
-    
+h2 {
+	text-align: center;
+	padding-bottom: 30px;
 }
 
-#identifiant:focus, #password:focus{
-    outline: none;
-}
-a:any-link{
-    color: black;
-}
-a:any-link:hover{
-    color: #d79a52;
-}
-#creation{
-    margin-top: 8%;
-}
-button{
-    
-    background-color: #d5a770;
-    border-style: solid;
-    border-color: #d5a770;
-    color: white;
-    font-weight: bold;
-    padding: 10px 40px;
-    border-radius: 30px;
-}
-button:hover{
-    background-color: #d79a52;
-    
-    
-}
-#check{
-    height: 20px;
-    width: 20px;
-}
-#check:checked{
-    background-color: #d5a770;
+input {
+	color: black;
+	padding: 2px;
+	background-color: #f2f2f2;
 }
 
+#option {
+	text-align: center;
+}
 
+#identifiant, #password {
+	border-style: solid;
+	border-color: lightgray;
+	border-width: 2px;
+	padding: 5px;
+	border-radius: 10px;
+}
 
+#identifiant:focus, #password:focus {
+	outline: none;
+}
+
+#mdpoublie:any-link {
+	color: black;
+}
+
+#mdpoublie:any-link:hover {
+	color: #d79a52;
+}
+
+#creation {
+	margin-top: 8%;
+}
+
+button {
+	background-color: #d5a770;
+	border-style: solid;
+	border-color: #d5a770;
+	color: white;
+	font-weight: bold;
+	padding: 10px 40px;
+	border-radius: 30px;
+}
+
+button:hover {
+	background-color: #d79a52;
+}
+
+#check {
+	height: 20px;
+	width: 20px;
+}
+
+#check:checked {
+	background-color: #d5a770;
+}
+
+#buttonCreate {
+	background-color: #d5a770;
+	border-style: solid;
+	border-color: #d5a770;
+	color: white;
+	font-weight: bold;
+	padding: 10px 40px;
+	border-radius: 30px;
+	margin-top: 8%;
+}

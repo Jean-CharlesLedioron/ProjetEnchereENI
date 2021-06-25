@@ -35,14 +35,14 @@
 	    <header>
 		<img alt="logo" src="">
 			<a class="header-slogan" href="/ContenuProjetE/"> ENI-Enchères</a>
-		
+		<div id="login">
+			<p style="color:white">Bonjour ${pseudo}</p>
+		</div> 
 
 		<div id="subscribe">
 			<a href="CreationEnchere">Vendre un article</a> 
 		</div>
-		<div id="login">
-			<a href=""> Enchère</a>
-		</div>
+		
 		<div id="login">
 			<a href="ServletAffichageVendeur?pseudo=${pseudo }">Mon Profil </a>
 		</div>

@@ -124,15 +124,8 @@
 				
 				<!-- Bouton -->
 				
-<<<<<<< HEAD
-				<div class="form-group">
-					<div class="col-md-2 col-md-offset-1">
-						<a href="ServletAccueil" class="btn btn-primary">Revenir à l'accueil</a>
-					</div>
-				</div>
-=======
+			
 			<div class="form-group">
->>>>>>> branch 'main' of https://github.com/Jean-CharlesLedioron/ProjetEnchereENI.git
 				<c:if test="${vendeur.pseudo eq pseudo}">
 					
 					<div class="col-sm-1 col-sm-offset-1">
@@ -141,7 +134,7 @@
 			
 				</c:if>
 					<div class="col-sm-1 col-sm-offset-2">
-						<a href="monProfil.jsp" class="btn btn-primary">Revenir à mon compte</a>
+						<a href="ServletAccueil" class="btn btn-primary">Revenir à l'accueil</a>
 					</div>
 			</div>
 				
