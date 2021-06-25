@@ -42,8 +42,8 @@ public class ServletInscription extends HttpServlet {
 		
 			EnchereManager.getInstance().insertNouvelAdherent(utilisateur,request.getParameter("confirm_password"));
 			HttpSession session = request.getSession();
-			session.setAttribute("pseudoConnection", request.getParameter("pseudo")); //TODO
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Acceuil.jsp");
+			session.setAttribute("pseudoConnection", request.getParameter("pseudo"));
+			RequestDispatcher rd = request.getRequestDispatcher("/ServletAccueil");
 			rd.forward(request, response);
 			
 		} catch (BusinessException businessException) {

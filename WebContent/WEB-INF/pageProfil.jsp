@@ -36,13 +36,13 @@
 
 				<legend style="text-align: center;">ENI-Enchères</legend>
 				
-								
+				<div></div>				
 				<div class="form-group col-md-6">
 						<label for="pseudo">Pseudo :</label> 				
 				</div>
 				
 				<div class="form-group col-md-6">
-					<label for="pseudo">${utilisateur.pseudo}</label> 
+					<label for="pseudo">${vendeur.pseudo}</label> 
 				</div>	
 
 				<div class="form-group col-md-6">
@@ -50,7 +50,7 @@
 				</div>
 					
 				<div class="form-group col-md-6">
-					<label for="nom">${utilisateur.nom}</label> 
+					<label for="nom">${vendeur.nom}</label> 
 				</div>
 
 				<div class="form-group col-md-6">
@@ -58,7 +58,7 @@
 				</div>
 					
 				<div class="form-group col-md-6">
-					<label for="prenom">${utilisateur.prenom}</label> 
+					<label for="prenom">${vendeur.prenom}</label> 
 				</div>
 
 				<div class="form-group col-md-6">
@@ -66,7 +66,7 @@
 				</div>
 					
 				<div class="form-group col-md-6">
-					<label for="email">${utilisateur.email}</label> 
+					<label for="email">${vendeur.email}</label> 
 				</div>
 					
 				<div class="form-group col-md-6">
@@ -74,7 +74,7 @@
 				</div>
 					
 				<div class="form-group col-md-6">
-					<label for="telephone">${utilisateur.telephone}</label> 
+					<label for="telephone">${vendeur.telephone}</label> 
 				</div>
 					
 				<div class="form-group col-md-6">
@@ -82,7 +82,7 @@
 				</div>
 					
 				<div class="form-group col-md-6">
-					<label for="rue">${utilisateur.rue}</label> 
+					<label for="rue">${vendeur.rue}</label> 
 				</div>
 
 				<div class="form-group col-md-6">
@@ -90,7 +90,7 @@
 				</div>
 					
 				<div class="form-group col-md-6">
-					<label for="cp">${utilisateur.pseudo}</label> 
+					<label for="cp">${vendeur.pseudo}</label> 
 				</div>
 
 				<div class="form-group col-md-6">
@@ -98,7 +98,7 @@
 				</div>
 					
 					<div class="form-group col-md-6">
-						<label for="ville">${utilisateur.ville}</label> 
+						<label for="ville">${vendeur.ville}</label> 
 					</div>
 				
 					<div class="form-group col-md-6">
@@ -114,6 +114,14 @@
 						<a href="monProfil.jsp" class="btn btn-primary">Revenir à mon compte</a>
 					</div>
 				</div>
+				<c:if test="${vendeur.pseudo eq pseudo}">
+				<div class="form-group">
+					<div class="col-md-2 col-md-offset-1">
+						<a href="Modification" class="btn btn-primary">Modifier mon compte</a>
+					</div>
+				</div>
+				</c:if>
+				
 
 		</div>
 

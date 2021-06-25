@@ -29,17 +29,16 @@ public class ServletVisualisationEnchere extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer id = 2;// EN DUR TODO
 		HttpSession session = request.getSession();
-		session.setAttribute("objetEnchere", id);
-		session.setAttribute("pseudo", "Diego");// EN DUR TODO
-		request.getParameter("objetEnchere");
+		session.getAttribute("pseudo");
+		Integer id= Integer.valueOf(request.getParameter("idEnchere"));
 		try {
-			ArticleVendu article = EnchereManager.getInstance().desriptionArticle((Integer) session.getAttribute("objetEnchere"));
+			ArticleVendu article = EnchereManager.getInstance().desriptionArticle(id);
 			request.setAttribute("article", article);
 			for (Enchere enchere : article.getEnchere()) {
 				request.setAttribute("meilleureEnchere", enchere);
 			}
+			session.setAttribute("idArticle", id);
 		} catch (BusinessException businessException) {
 			businessException.printStackTrace();
 			request.setAttribute("listeCodesErreur", businessException.getListeCodesErreur());
@@ -53,8 +52,9 @@ public class ServletVisualisationEnchere extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		Integer id= (Integer) session.getAttribute("idArticle");
 		Utilisateur utilisateur = new Utilisateur((String) session.getAttribute("pseudo"));
-		ArticleVendu article = new ArticleVendu((Integer) session.getAttribute("objetEnchere"));
+		ArticleVendu article = new ArticleVendu(id);
 		int propostionEnchere = Integer.valueOf(request.getParameter("propositionEnchere"));
 		try {
 			EnchereManager.getInstance().propositionEnchere(utilisateur,article,propostionEnchere);
@@ -66,7 +66,19 @@ public class ServletVisualisationEnchere extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Enchere.jsp");
 			rd.forward(request, response);
 		}
-		doGet(request, response);
+		try {
+			ArticleVendu articleAffiche = EnchereManager.getInstance().desriptionArticle(id);
+			request.setAttribute("article", articleAffiche);
+			for (Enchere enchere : articleAffiche.getEnchere()) {
+				request.setAttribute("meilleureEnchere", enchere);
+			}
+			session.setAttribute("idArticle", id);
+		} catch (BusinessException businessException) {
+			businessException.printStackTrace();
+			request.setAttribute("listeCodesErreur", businessException.getListeCodesErreur());
+		}
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Enchere.jsp");
+		rd.forward(request, response);
 		
 	}
 

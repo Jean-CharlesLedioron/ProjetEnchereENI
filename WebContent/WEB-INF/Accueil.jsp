@@ -44,7 +44,7 @@
 			<a href=""> Enchère</a>
 		</div>
 		<div id="login">
-			<a href="">Mon Profil </a>
+			<a href="ServletAffichageVendeur?pseudo=${pseudo }">Mon Profil </a>
 		</div>
 		<div id="login">
 			<a href="Deconnexion">Déconnexion</a>
@@ -94,10 +94,10 @@
 							<div class="card flex-row bg-warning">
 								<img src="#" alt="Belle image">
 								<div class="card-body">
-									<a href="#" class="card-link"><h5 class="card-title">${enchere.nomArticle }</h5></a><br>
+									<a href="Enchere?idEnchere=${enchere.noArticle }" class="card-link"><h5 class="card-title">${enchere.nomArticle }</h5></a><br>
 									Prix : ${enchere.prixInitial } crédits<br> Fin de
 									l'enchère : ${enchere.dateFinEnchere }<br> Vendeur : <a
-										href="#" id="${enchere.utilisateur.pseudo }" class="card-link">${enchere.utilisateur.pseudo }</a><br>
+										href="ServletAffichageVendeur?pseudo=${enchere.utilisateur.pseudo }" id="${enchere.utilisateur.pseudo }" class="card-link">${enchere.utilisateur.pseudo }</a><br>
 								</div>
 							</div>
 						</div>

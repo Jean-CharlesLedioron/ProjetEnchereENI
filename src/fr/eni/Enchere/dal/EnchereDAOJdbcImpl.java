@@ -210,7 +210,6 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 					pstmt3.setInt(2, article.getNoArticle());
 					pstmt3.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
 					pstmt3.setInt(4, propositionEnchere);
-					System.out.println(pstmt3);
 					pstmt3.executeUpdate();
 					miseAJourCredit(utilisateur,propositionEnchere,con,pseudoMeilleurEnchere,meilleureEnchere);
 				}

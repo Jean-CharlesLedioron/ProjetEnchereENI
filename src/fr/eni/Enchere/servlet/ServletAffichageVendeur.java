@@ -50,7 +50,7 @@ public class ServletAffichageVendeur extends HttpServlet {
 				EnchereManager enchereManager =new EnchereManager();
 				Utilisateur vendeur;
 				vendeur = enchereManager.afficherVendeur(pseudoVendeur);
-				request.setAttribute("pseudo", vendeur);
+				request.setAttribute("vendeur", vendeur);
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				request.setAttribute("listeCodesErreur", e.getListeCodesErreur());

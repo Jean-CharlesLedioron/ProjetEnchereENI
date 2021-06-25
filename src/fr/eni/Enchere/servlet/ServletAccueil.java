@@ -34,6 +34,7 @@ public class ServletAccueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		HttpSession session = request.getSession();
+//		session.setAttribute("pseudo", "DK");
 		session.getAttribute("pseudo");
 		List<ArticleVendu> listeEncheres = new ArrayList<ArticleVendu>();
 		try {
@@ -85,6 +86,7 @@ public class ServletAccueil extends HttpServlet {
 		request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
 	}
 	*/
+		doGet(request, response);
 		
 
 			
