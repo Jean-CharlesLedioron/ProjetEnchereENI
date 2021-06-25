@@ -14,7 +14,7 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<legend>ENI-Enchères</legend>
+			<%@ include file="header.jsp"  %>
 
 			<fieldset>
 				<legend style="text-align: center;">Nouvelle vente</legend>
@@ -132,5 +132,6 @@
 			</fieldset>
 		</div>
 	</div>
+		<footer><%@ include file="footer.jsp" %></footer>
 </body>
 </html>

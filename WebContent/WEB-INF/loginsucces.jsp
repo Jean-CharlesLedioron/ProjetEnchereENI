@@ -8,6 +8,10 @@
 <title>connexion réussis</title>
 </head>
 <body>
+<%@ include file="header.jsp"  %>
+
 	<h1>Bienvenue <c:out value="${pseudo}"></c:out></h1>
+	
+	<footer><%@ include file="footer.jsp" %></footer>
 </body>
 </html>

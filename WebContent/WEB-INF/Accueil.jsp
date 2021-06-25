@@ -19,7 +19,7 @@
 	<c:choose>
 			<c:when test="${empty pseudo}">
 	<header>
-		<img alt="logo" src=""> <a class="header-slogan"
+		<img alt="logo" src="${pageContext.request.contextPath}/image/logo3.png"> <a class="header-slogan"
 			href="ServletAccueil"> ENI-Enchères</a>
 
 
@@ -32,26 +32,12 @@
 	</header>
 	</c:when>
 	<c:otherwise>
-	    <header>
-		<img alt="logo" src="">
-			<a class="header-slogan" href="/ContenuProjetE/"> ENI-Enchères</a>
-		<div id="login">
-			<p style="color:white">Bonjour ${pseudo}</p>
-		</div> 
-
-		<div id="subscribe">
-			<a href="CreationEnchere">Vendre un article</a> 
-		</div>
-		
-		<div id="login">
-			<a href="ServletAffichageVendeur?pseudo=${pseudo }">Mon Profil </a>
-		</div>
-		<div id="login">
-			<a href="Deconnexion">Déconnexion</a>
-		</div>
-	</header>
+	   
+		<%@ include file="header.jsp"  %>
+	
 	</c:otherwise>
 	</c:choose>
+
 	<!-- <p> -->
 	<%-- 		<c:if test="${!empty categorie}">${request.getParameter("categorie")}</c:if> --%>
 	<%-- 		<c:if test="${!empty Filtre}">${request.getParameter("Filtre")}</c:if> --%>
@@ -123,5 +109,7 @@
 			</c:otherwise>
 		</c:choose>
 	</section>
+	
+		<footer><%@ include file="footer.jsp" %></footer>
 </body>
 </html>

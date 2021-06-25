@@ -2,18 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="fr.eni.Enchere.messages.LecteurMessage"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/eni.css">
+
+
 <title>Inscription</title>
 </head>
 <body>
@@ -23,7 +27,7 @@
 			<div class="col-md-8 col-md-offset-2">
 				<form role="form" method="POST" action="Inscription">
 
-					<legend style="text-align: center;">ENI-Enchères</legend>
+					<%@ include file="header.jsp"  %>
 
 					<fieldset>
 						<legend style="text-align: center;">Mon Profil</legend>
@@ -117,5 +121,6 @@
 
 		</div>
 	</div>
+	<footer><%@ include file="footer.jsp" %></footer>
 </body>
 </html>

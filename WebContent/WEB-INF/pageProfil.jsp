@@ -16,7 +16,7 @@
 </head>
 <body>
 
-
+<%@ include file="header.jsp"  %>
 
 <div class="container">
 		<div class="row">
@@ -145,6 +145,6 @@
 
 	</div>
 </div>
-
+<footer><%@ include file="footer.jsp" %></footer>
 </body>
 </html>

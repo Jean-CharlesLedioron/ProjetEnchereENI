@@ -9,6 +9,7 @@ header{
 	background-color: black; 
 	padding: 5%;
 	margin: 0%;
+	width: 100%;
 }
 
 a{
@@ -16,7 +17,7 @@ a{
 }
 
 .header-slogan{
-	font-size: 40px;
+	font-size: 30px;
 }
 
 h1{
@@ -63,4 +64,9 @@ h1{
     margin-top: 120px;
     margin-left: 180px; 
     
+}
+
+nav{
+	position : left;
+	background-color : black;
 }
