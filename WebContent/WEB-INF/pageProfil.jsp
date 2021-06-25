@@ -36,6 +36,7 @@
 
 				<legend style="text-align: center;">ENI-Enchères</legend>
 				
+			<div class="row">
 				<div></div>				
 				<div class="form-group col-md-6">
 						<label for="pseudo">Pseudo :</label> 				
@@ -44,7 +45,9 @@
 				<div class="form-group col-md-6">
 					<label for="pseudo">${vendeur.pseudo}</label> 
 				</div>	
+			</div>
 
+			<div class="row">
 				<div class="form-group col-md-6">
 					<label for="nom">Nom :</label> 
 				</div>
@@ -52,7 +55,9 @@
 				<div class="form-group col-md-6">
 					<label for="nom">${vendeur.nom}</label> 
 				</div>
-
+			</div>
+			
+			<div class="row">
 				<div class="form-group col-md-6">
 					<label for="prenom">Prénom :</label> 
 				</div>
@@ -60,7 +65,9 @@
 				<div class="form-group col-md-6">
 					<label for="prenom">${vendeur.prenom}</label> 
 				</div>
-
+			</div>
+			
+			<div class="row">
 				<div class="form-group col-md-6">
 					<label for="email">Email :</label> 
 				</div>
@@ -68,7 +75,9 @@
 				<div class="form-group col-md-6">
 					<label for="email">${vendeur.email}</label> 
 				</div>
-					
+			</div>
+			
+			<div class="row">		
 				<div class="form-group col-md-6">
 					<label for="telephone">Téléphone :</label> 
 				</div>
@@ -76,7 +85,9 @@
 				<div class="form-group col-md-6">
 					<label for="telephone">${vendeur.telephone}</label> 
 				</div>
-					
+			</div>
+			
+			<div class="row">		
 				<div class="form-group col-md-6">
 					<label for="rue">Rue :</label> 
 				</div>
@@ -84,7 +95,9 @@
 				<div class="form-group col-md-6">
 					<label for="rue">${vendeur.rue}</label> 
 				</div>
-
+			</div>
+			
+			<div class="row">
 				<div class="form-group col-md-6">
 					<label for="cp">Code postal :</label> 
 				</div>
@@ -92,7 +105,9 @@
 				<div class="form-group col-md-6">
 					<label for="cp">${vendeur.pseudo}</label> 
 				</div>
+			</div>
 
+			<div class="row">
 				<div class="form-group col-md-6">
 						<label for="ville">Ville :</label> 
 				</div>
@@ -100,7 +115,7 @@
 					<div class="form-group col-md-6">
 						<label for="ville">${vendeur.ville}</label> 
 					</div>
-				
+			</div>
 					<div class="form-group col-md-6">
 						
 					</div>
@@ -109,18 +124,28 @@
 				
 				<!-- Bouton -->
 				
+<<<<<<< HEAD
 				<div class="form-group">
 					<div class="col-md-2 col-md-offset-1">
 						<a href="ServletAccueil" class="btn btn-primary">Revenir à l'accueil</a>
 					</div>
 				</div>
+=======
+			<div class="form-group">
+>>>>>>> branch 'main' of https://github.com/Jean-CharlesLedioron/ProjetEnchereENI.git
 				<c:if test="${vendeur.pseudo eq pseudo}">
-				<div class="form-group">
-					<div class="col-md-2 col-md-offset-1">
+					
+					<div class="col-sm-1 col-sm-offset-1">
 						<a href="Modification" class="btn btn-primary">Modifier mon compte</a>
 					</div>
-				</div>
+			
 				</c:if>
+					<div class="col-sm-1 col-sm-offset-2">
+						<a href="monProfil.jsp" class="btn btn-primary">Revenir à mon compte</a>
+					</div>
+			</div>
+				
+			
 				
 
 		</div>
